@@ -48,12 +48,19 @@ export class DonnerAssigningComponent implements OnInit {
   patientDescription: string;
   relationWithPatient: string;
 
+  buttonRemove = true;
+  buttonReject = true;
+  buttonApprove = true;
+  pageHeader = '';
+
   postIDSave: string;
   showPostCheck = false;
   showPostDetails: boolean;
   showDonnerDetails: boolean;
   donnerFoundCheck: boolean;
   postFound: boolean;
+
+  sortBy: string;
 
   donnerUserID: string;
 
