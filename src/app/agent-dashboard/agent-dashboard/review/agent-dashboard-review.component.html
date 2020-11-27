@@ -107,11 +107,12 @@
           </tr>
           <tr *ngFor="let ar of donnerRequestsToReview; let i=index">
             <!--remove-->
-            <td *ngIf="buttonRemove">
-              <button class="btn btn-xs btn-danger" (click)="requestRemove(ar.requestId)" data-toggle="modal"
-                      data-target="#donation_delete">Remove
-              </button>
-            </td>
+            <!--TODO: Due to error comemnt-->
+            <!--<td *ngIf="buttonRemove">-->
+              <!--<button class="btn btn-xs btn-danger" (click)="requestRemove(ar.requestId)" data-toggle="modal"-->
+                      <!--data-target="#donation_delete">Remove-->
+              <!--</button>-->
+            <!--</td>-->
             <!--Reject-->
             <td *ngIf="buttonReject">
               <button class="btn btn-xs btn-warning" (click)="requestReject(ar.requestId)" data-toggle="modal"
