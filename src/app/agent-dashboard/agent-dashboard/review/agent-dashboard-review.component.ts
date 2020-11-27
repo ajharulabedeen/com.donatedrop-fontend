@@ -48,6 +48,7 @@ export class AgentDashboardReviewComponent implements OnInit {
   perPage = 10;
   pageNumber = 0;
   phoneNumber = '';
+  sortBy: string;
 
   requestID: string;
   agentNote: string;
