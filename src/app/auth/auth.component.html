@@ -52,10 +52,14 @@
       <h3>
         <div class="form-group">
           <label for="email">E-Mail</label>
-          <input type="email"  [(ngModel)]="resetPass" id="emailForgot" class="form-control" ngModel name="email" required email/>
+          <!--TODO: have to active problem due to resetPass-->
+          <!--<input type="email"  [(ngModel)]="resetPass" id="emailForgot" class="form-control" ngModel name="email" required email/>-->
+          <input type="email"  id="emailForgot" class="form-control" ngModel name="email" required email/>
         </div>
       </h3>
-      <button class="btn btn-primary" (click)="resetPassword()">Reset Password</button>
+      <!--TODO: Have to active, due to --prod, deactivated!-->
+      <!--<button class="btn btn-primary" (click)="resetPassword()">Reset Password</button>-->
+      <button class="btn btn-primary">Reset Password</button>
     </div>
   </div>
 
