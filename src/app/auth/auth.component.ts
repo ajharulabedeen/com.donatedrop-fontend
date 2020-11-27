@@ -11,6 +11,7 @@ import {AuthService, AuthResponseData} from './auth.service';
   templateUrl: './auth.component.html'
 })
 export class AuthComponent implements OnInit {
+  forgotPass = false;
   isLoginMode = true;
   isLoading = false;
   error: string = null;

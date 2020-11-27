@@ -24,7 +24,7 @@ import {FileUploaderTestComponent} from './file-uploader-test/file-uploader-test
 // import { PaymentModule } from './payment/payment.module';
 import {EventModule} from './event/event.module';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
-import {RecordRtcComponent} from './record-rtc/record-rtc.component';
+// import {RecordRtcComponent} from './record-rtc/record-rtc.component';
 import {RecordClearComponent} from './record-clear/record-clear.component';
 import {DonationHistoryComponent} from './donation-history/donation-history.component';
 import {AdminModule} from './admin/admin.module';
@@ -42,7 +42,7 @@ import {RouterModule} from '@angular/router';
     AuthComponent,
     DataTableComponent,
     FileUploaderTestComponent,
-    RecordRtcComponent,
+    // RecordRtcComponent,
     RecordClearComponent,
     DonationHistoryComponent
     // AuthService

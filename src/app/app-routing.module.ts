@@ -11,7 +11,6 @@ import {ProfileComponent} from './profile/profile/profile.component';
 import {TimelineComponent} from './profile/timeline/timeline.component';
 import {FileUploaderTestComponent} from './file-uploader-test/file-uploader-test.component';
 import {EventManageComponent} from './event/event-manage/event-manage.component';
-import {RecordRtcComponent} from './record-rtc/record-rtc.component';
 import {RecordClearComponent} from './record-clear/record-clear.component';
 import {DonationHistoryComponent} from './donation-history/donation-history.component';
 import {PersonalInfoComponent} from './profile/personal-info/personal-info.component';
@@ -39,7 +38,7 @@ const routes: Routes = [
   {path: 'timeline', component: TimelineComponent},
   {path: 'file', component: FileUploaderTestComponent},
   {path: 'event', component: EventManageComponent},
-  {path: 'record', component: RecordRtcComponent},
+  // {path: 'record', component: RecordRtcComponent},
   {path: 'rec', component: RecordClearComponent},
   {path: 'user/profile', component: ProfileComponent},
   {path: 'user/donation_history', component: DonationHistoryComponent},
