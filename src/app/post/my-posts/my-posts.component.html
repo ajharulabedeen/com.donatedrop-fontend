@@ -1,0 +1,514 @@
+
+<div class="container row">
+  <h2>{{pageHeader}}</h2>
+  <!--add new post-->
+  <button type="button" class="btn btn-md btn-primary" data-toggle="modal" [attr.data-target]="'#' + modalNew">
+    Add New
+  </button>
+  <!--search button-->
+  <h4>
+    <button class="btn btn-info" (click)="getAllPostsByAnUser()">Search</button>
+    <!--<button class="btn btn-xs btn-primary" (click)="searchCount()">Refresh</button>-->
+  </h4>
+</div>
+
+<!--START : Search-->
+<div>
+  <!-- sort by column name -->
+  <!--start : search fields and search key or search value -->
+  <div class="col-md-12 offset-md-12">
+    <div class="form-group">
+      <label>Value : </label>
+      <input [(ngModel)]="searchKey" type="text" class="form-control">
+    </div>
+  </div>
+
+  <div class="col-md-12 offset-md-12">
+    <div class="col-md-2">
+      <h4>Search Between Date</h4>
+      <input [(ngModel)]="searchWithinDate" type="checkbox">
+      <div *ngIf="searchWithinDate">
+        <br>
+        <h4>Select Date Type</h4>
+        <input type="radio" name="dateType_search" [(ngModel)]="dateType" value="need_date" checked="checked">Need
+        Date<br>
+        <input type="radio" name="dateType_search" [(ngModel)]="dateType" value="post_date">Post Date
+      </div>
+    </div>
+    <!--(click)="searchWithinDate=!searchWithinDate;"-->
+    <br>
+    <!--start/end : date-->
+    <div *ngIf="searchWithinDate">
+      <!--start Date-->
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>Start Date:</label>
+          <div class="input-group date">
+            <input [(ngModel)]="startDate" type="text" class="form-control pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Select Date:</label>
+          <div class="input-group date">
+            <input [(ngModel)]="startDate" type="date" class="form-control pull-right">
+          </div>
+        </div>
+      </div>
+      <!--end s Date-->
+      <div class="col-md-2">
+        <div class="form-group">
+          <label>End Date:</label>
+          <div class="input-group date">
+            <input [(ngModel)]="endDate" type="text" class="form-control pull-right">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Select Date:</label>
+          <div class="input-group date">
+            <input [(ngModel)]="endDate" type="date" class="form-control pull-right">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Search By : column name-->
+  <div class="col-md-4 offset-md-4">
+    <div class="form-group">
+      <h4>Search By :</h4>
+      <select [(ngModel)]="searchBy">
+        <option value="post_id">Post ID</option>
+        <option value="need_date">Need Date</option>
+        <option value="post_date">Post Date</option>
+        <option value="blood_type">Blood Type</option>
+        <option value="contact_info">Contact Info</option>
+        <option value="hospital_name">Hospital Name</option>
+        <option value="hospital_address">Hospital Address</option>
+        <option value="location">Location</option>
+        <option value="patient_description">Patient Description</option>
+        <option value="patient_gender">Gender</option>
+        <option value="quantity">Quantity</option>
+        <option value="relation">Relation</option>
+        <option value="notes">Notes</option>
+        <option value="post_comment">Any Comment</option>
+        <option value="remarks">Remarks</option>
+      </select>
+    </div>
+  </div>
+  <!--Sort By : column name-->
+  <div class="col-md-4 offset-md-4">
+    <div class="form-group">
+      <h4>Sort By :</h4>
+      <select [(ngModel)]="sortBy">
+        <option value="post_id">Post ID</option>
+        <option value="need_date">Need Date</option>
+        <option value="post_date">Post Date</option>
+        <option value="blood_type">Blood Type</option>
+        <option value="contact_info">Contact Info</option>
+        <option value="hospital_name">Hospital Name</option>
+        <option value="hospital_address">Hospital Address</option>
+        <option value="location">Location</option>
+        <option value="patient_description">Patient Description</option>
+        <option value="patient_gender">Gender</option>
+        <option value="quantity">Quantity</option>
+        <option value="relation">Relation</option>
+        <option value="notes">Notes</option>
+        <option value="post_comment">Any Comment</option>
+        <option value="remarks">Remarks</option>
+      </select>
+    </div>
+  </div>
+  <!--       sort type : ASC or DESC -->
+  <div class="col-md-4 offset-md-4">
+    <div class="form-group" style="text-align: center">
+      <h4>Sort Order</h4>
+      <input type="radio" name="{{modalNew}}" [(ngModel)]="orderType" value="ASC" checked="checked">Ascending<br>
+      <input type="radio" name="{{modalNew}}" [(ngModel)]="orderType" value="DESC">Descending<br>
+    </div>
+  </div>
+  <!-- end : search fields selection and search key or search value-->
+
+  <!--      total-->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Total </label>
+      <input style="text-align: center" disabled="true" [(ngModel)]="total" type="number"
+             class="form-control" value="{{total}}">
+    </div>
+  </div>
+  <!--      start -->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Start</label>
+      <input style="text-align: center" [(ngModel)]="startPost" type="number" class="form-control"
+             value="{{startPost}}" (ngModelChange)="getAllPostsByAnUser()">
+    </div>
+  </div>
+  <!--      perPage-->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Per Page</label>
+      <input style="text-align: center" [(ngModel)]="perPage" type="number" class="form-control"
+             value="{{perPage}}" (ngModelChange)="getAllPostsByAnUser()">
+    </div>
+  </div>
+  <!--      prePage/nextPage-->
+  <div class="col-md-3 offset-md-3">
+    <div class="form-group" style="text-align: center">
+      <button class="btn btn-primary btn-xs" (click)="previousPage()">Previous</button>
+      <label class="btn btn-danger btn-xs ">Page Number</label>
+      <button class="btn btn-primary btn-xs" (click)="nextPage()">Next</button>
+      <input style="text-align: center" [(ngModel)]="pageNumber" type="number" class="form-control"
+             value="{{pageNumber}}">
+    </div>
+  </div>
+</div>
+<!--END : Search-->
+
+<!--start : table-->
+<div class="col-xs-12">
+  <div class="box">
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+        <tr>
+          <th>Operations</th>
+          <th>Index</th>
+          <th>Need Date</th>
+          <th>Quantity</th>
+          <th>Patient Gender</th>
+          <th>Relation</th>
+          <th>Hospital Name</th>
+          <th>Hospital Address</th>
+          <th>Location</th>
+          <th>Contact_info</th>
+          <th>Patient Description</th>
+          <th>Notes Personal</th>
+        </tr>
+        <tr *ngFor="let p of bloodPosts; let i=index">
+          <!--delete-->
+          <td>
+            <button *ngIf="reactiveButton" class="btn btn-xs btn-info" (click)="postReactive(p)">
+              Reactive
+            </button>
+            <br *ngIf="reactiveButton">
+            <button class="btn btn-xs btn-warning" (click)="setPostsForEdit(p)"
+                    data-toggle="modal"
+                    [attr.data-target]="'#'+modalEdit">Edit
+            </button>
+            <button class="btn btn-xs btn-danger" (click)=" delete_post_id = p.postID" data-toggle="modal"
+                    [attr.data-target]="'#'+modalDelete">Delete
+            </button>
+            <br>
+            <a target="_blank" class="btn btn-primary btn-xs" role="button"
+               [routerLink]="['/post_details', p.postID]">Details</a>
+            <br *ngIf="managedButton">
+            <button *ngIf="managedButton" class="btn btn-xs btn-primary" data-toggle="modal"
+                    data-target="#new_post"
+                    (click)="bloodManaged(p)">Managed
+            </button>
+            <br *ngIf="expiredButton">
+            <button *ngIf="expiredButton" class="btn btn-xs btn-warning" (click)="setPostExpired(p)">
+              Expired
+            </button>
+          </td>
+          <td>{{i+1}}</td>
+          <td>{{p.needDate}}</td>
+          <td>{{p.quantity}}</td>
+          <td>{{p.patientGender}}</td>
+          <td>{{p.relation}}</td>
+          <td>{{p.hospitalName}}</td>
+          <td>{{p.hospitalAddress}}</td>
+          <td>{{p.location}}</td>
+          <td>{{p.contactInfo}}</td>
+          <td>{{p.patientDescription}}</td>
+          <td>{{p.notes}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel-footer">My Posts</div>
+</div>
+<!--end : table-->
+
+<!--</div>-->
+
+<!-- Modal-start  : New Posts-->
+<div class="modal fade" id="{{modalNew}}" tabindex="-1" role="dialog" aria-labelledby="new_postLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title" id="new_postLabel">New Blood Post({{pageHeader}})</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!--Need Date-->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Need Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="bloodNeedDate" type="text" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="bloodNeedDate" type="date" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <!--blood_type-->
+        <div class="col-md-4">
+          <label>Blood Group</label>
+          <div class="form-group">
+            <select [(ngModel)]="blood_Group"
+                    class="form-control select2 select2-hidden-accessible"
+                    style="width: 100%;" tabindex="-1" aria-hidden="true"
+            >
+              <option *ngFor="let b of bloods">{{b}}</option>
+            </select>
+          </div>
+        </div>
+        <!--quantity-->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Qauntity</label>
+            <input [(ngModel)]="quantity" type="text" class="form-control"
+                   placeholder="Enter Quantity...">
+          </div>
+        </div>
+        <!--patient_gender-->
+        <div class="col-md-4">
+          <label>Gender</label>
+          <div class="form-group">
+            <div class="form-group" data-select2-id="27">
+              <select [(ngModel)]="patientGender"
+                      class="form-control select2 select2-hidden-accessible"
+                      style="width: 100%;" tabindex="-1" aria-hidden="true"
+              >
+                <option value="other">Other</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!--relation-->
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Relation</label>
+            <input [(ngModel)]="relationWithPatient" type="text" class="form-control"
+                   placeholder="Enter Relation with the patient...">
+          </div>
+        </div>
+        <!--hospital_name-->
+        <div class="form-group">
+          <label>Hospital Name</label>
+          <input [(ngModel)]="hospitalName" type="text" class="form-control"
+                 placeholder="Enter Hospital Name...">
+        </div>
+        <!--hospital_address-->
+        <div class="form-group">
+          <label>Hospital Address</label>
+          <input [(ngModel)]="hospitalAddress" type="text" class="form-control"
+                 placeholder="Enter Hospital Name...">
+        </div>
+        <!--location-->
+        <div class="form-group">
+          <label>Location</label>
+          <textarea class="col-md-12" [(ngModel)]="donationLocation"></textarea>
+        </div>
+        <!--contact_info-->
+        <div class="form-group">
+          <label>Contact Info</label>
+          <textarea class="col-md-12" [(ngModel)]="contactInfo"></textarea>
+        </div>
+        <!--patient_description`,-->
+        <div class="form-group">
+          <label>Patient Type/Description</label>
+          <textarea class="col-md-12" [(ngModel)]="patientDescription"></textarea>
+        </div>
+        <!--notes : thought no need, will be used as note personal-->
+        <div class="form-group">
+          <label>Note Persoanl(Private)</label>
+          <textarea class="col-md-12" [(ngModel)]="anyNotes"></textarea>
+        </div>
+        <!--remarks : thought no need, same kind of fiekd tree -->
+        <!--<div class="form-group">-->
+        <!--<label>Patient Remarks</label>-->
+        <!--<textarea class="col-md-12" [(ngModel)]="patientRemarks"></textarea>-->
+        <!--</div>-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="save()">Save</button>
+      </div>
+    </div>
+  </div>
+  <!-- <app-footernavbar></app-footernavbar> -->
+  <!-- <app-settingsnavbar></app-settingsnavbar> -->
+</div>
+<!-- Modal-end : New Posts-->
+
+<!-- Modal-start  : Edit Posts-->
+<div class="modal fade" id="{{modalEdit}}" tabindex="-1" role="dialog" aria-labelledby="new_postLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title">Edit Post({{pageHeader}})</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!--Need Date-->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Need Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="edit_bloodNeedDate" type="text" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="edit_bloodNeedDate" type="date" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <!--blood_type-->
+        <div class="col-md-4">
+          <label>Blood Group</label>
+          <div class="form-group">
+            <select [(ngModel)]="edit_blood_Group"
+                    class="form-control select2 select2-hidden-accessible"
+                    style="width: 100%;" tabindex="-1" aria-hidden="true"
+            >
+              <option *ngFor="let b of bloods">{{b}}</option>
+            </select>
+          </div>
+        </div>
+        <!--quantity-->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Qauntity</label>
+            <input [(ngModel)]="edit_quantity" type="text" class="form-control"
+                   placeholder="Enter Quantity...">
+          </div>
+        </div>
+        <!--patient_gender-->
+        <div class="col-md-4">
+          <label>Gender</label>
+          <div class="form-group">
+            <div class="form-group" data-select2-id="27">
+              <select [(ngModel)]="edit_patientGender"
+                      class="form-control select2 select2-hidden-accessible"
+                      style="width: 100%;" tabindex="-1" aria-hidden="true"
+              >
+                <option value="Other">Other</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!--relation-->
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Relation</label>
+            <input [(ngModel)]="edit_relationWithPatient" type="text" class="form-control"
+                   placeholder="Enter Relation with the patient...">
+          </div>
+        </div>
+        <!--hospital_name-->
+        <div class="form-group">
+          <label>Hospital Name</label>
+          <input [(ngModel)]="edit_hospitalName" type="text" class="form-control"
+                 placeholder="Enter Hospital Name...">
+        </div>
+        <!--hospital_address-->
+        <div class="form-group">
+          <label>Hospital Address</label>
+          <input [(ngModel)]="edit_hospitalAddress" type="text" class="form-control"
+                 placeholder="Enter Hospital Name...">
+        </div>
+        <!--location-->
+        <div class="form-group">
+          <label>Location</label>
+          <textarea class="col-md-12" [(ngModel)]="edit_donationLocation"></textarea>
+        </div>
+        <!--contact_info-->
+        <div class="form-group">
+          <label>Contact Info</label>
+          <textarea class="col-md-12" [(ngModel)]="edit_contactInfo"></textarea>
+        </div>
+        <!--patient_description`,-->
+        <div class="form-group">
+          <label>Patient Type/Description</label>
+          <textarea class="col-md-12" [(ngModel)]="edit_patientDescription"></textarea>
+        </div>
+        <!--notes : thought no need, will be used as note personal-->
+        <div class="form-group">
+          <label>Note Persoanl(Private)</label>
+          <textarea class="col-md-12" [(ngModel)]="edit_anyNotes"></textarea>
+        </div>
+        <!--remarks : thought no need, same kind of fiekd tree -->
+        <!--<div class="form-group">-->
+        <!--<label>Patient Remarks</label>-->
+        <!--<textarea class="col-md-12" [(ngModel)]="patientRemarks"></textarea>-->
+        <!--</div>-->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveEditPost()">Save</button>
+      </div>
+    </div>
+  </div>
+  <!-- <app-footernavbar></app-footernavbar> -->
+  <!-- <app-settingsnavbar></app-settingsnavbar> -->
+</div>
+<!-- Modal-end : Edit Posts-->
+
+<!--refacotor : Have to make util component delete, by @input value will send, by @output click value will be got-->
+<!-- start-Modal :  Delete Confirmation -->
+<div class="modal fade" id="{{modalDelete}}" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Post({{pageHeader}})</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Are U sure to delete?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary btn-danger" (click)="deletePost()"
+                data-dismiss="modal">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end-Modal :  Delete Confirmation -->

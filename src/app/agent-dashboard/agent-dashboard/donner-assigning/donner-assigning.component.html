@@ -1,0 +1,612 @@
+<!--start : search fields and search key or search value -->
+<div style="background-color: pink">
+  <h4 align="left">
+    <button class="btn btn-info" (click)="startAssingments=0; getAssingments(); ">Search</button>
+    <!--<button class="btn btn-xs btn-primary" (click)="searchCount()">Refresh</button>-->
+  </h4>
+
+  <div align="left" class="col-md-12 offset-md-12">
+    <div class="form-group">
+      <label>Value : </label>
+      <input [(ngModel)]="searchKey" type="text" class="form-control">
+    </div>
+  </div>
+  <!--Search By :-->
+  <div align="left" class="col-md-12 offset-md-12">
+    <div class="form-group">
+      <h4>Search By :</h4>
+      <select [(ngModel)]="searchByColumn">
+        <option value="name">Name</option>
+        <option value="gender">Gender</option>
+        <option value="profession">Profession</option>
+        <option value="profile_id">Profile ID</option>
+        <option value="note">Note</option>
+        <option value="username">Username</option>
+        <option value="status">Status</option>
+        <option value="donner_id">Donner User Id</option>
+        <option value="assing_note">Assing Date</option>
+        <option value="assing_date">Assing Note</option>
+        <option value="need_date">Need Date</option>
+        <option value="post_id">Post Id</option>
+        <option value="blood_manage_status">Blood Manage Status</option>
+      </select>
+    </div>
+  </div>
+  <!-- end : search fields selection and search key or search value-->
+
+  <!--      total-->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Total </label>
+      <input style="text-align: center" disabled="true" [(ngModel)]="total" type="number"
+             class="form-control" value="{{total}}">
+    </div>
+  </div>
+  <!--      start -->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Start</label>
+      <input style="text-align: center" [(ngModel)]="startAssigments" type="number" class="form-control"
+             (ngModelChange)="getAssingments()">
+    </div>
+  </div>
+  <!--      perPage-->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Per Page</label>
+      <input style="text-align: center" [(ngModel)]="perPage" type="number" class="form-control"
+             value="{{perPage}}" (ngModelChange)="getAssingments()">
+    </div>
+  </div>
+  <!--      prePage/nextPage-->
+  <div class="col-md-2 offset-md-2">
+    <div class="form-group" style="text-align: center">
+      <button class="btn btn-primary btn-xs" (click)="previousPage()">Previous</button>
+      <label class="btn btn-danger btn-xs ">Page Number</label>
+      <button class="btn btn-primary btn-xs" (click)="nextPage()">Next</button>
+      <input style="text-align: center" [(ngModel)]="pageNumber" type="number" class="form-control"
+             value="{{pageNumber}}">
+    </div>
+  </div>
+  <!--       sort by ASC or DESC -->
+  <div class="col-md-2 offset-md-2">
+    <div class="form-group" style="text-align: center">
+      <h4>Sort Order</h4>
+      <input type="radio" name="m_pay" [(ngModel)]="sortBy" value="ASC" checked="checked">Ascending<br>
+      <input type="radio" name="m_pay" [(ngModel)]="sortBy" value="DESC">Descending<br>
+    </div>
+  </div>
+
+  <!--       Assingment Type-->
+  <div class="col-md-2 offset-md-2">
+    <div class="form-group" style="text-align: center">
+      <h4>Assingment Type</h4>
+      <input type="radio" name="n_pay" (click)="getAssingments()" (change)="getAssingments()"
+             [(ngModel)]="assignmentStatus" value="ACTIVE" checked="checked">Active<br>
+      <input type="radio" name="n_pay" (click)="getAssingments()" (change)="getAssingments()"
+             [(ngModel)]="assignmentStatus" value="COMPLETE">Completed<br>
+      <input type="radio" name="n_pay" (click)="getAssingments()" (change)="getAssingments()"
+             [(ngModel)]="assignmentStatus" value="EXPIRED">Expired<br>
+    </div>
+  </div>
+
+</div>
+<!--END : Search-->
+
+<button class="btn btn-md btn-primary" (click)="requestRemove(da.requestId)" data-toggle="modal"
+        data-target="#new_blood_assignment">Add New
+</button>
+
+<!--start : table-->
+<div class="col-xs-12">
+  <div class="box">
+    <div class="box-body table-responsive no-padding">
+      <table class="table table-hover">
+        <tbody>
+        <!--header-->
+        <tr>
+          <th>Operations</th>
+          <th *ngIf="buttonRemove">Remove</th>
+          <th *ngIf="buttonReject">Reject</th>
+          <th *ngIf="buttonApprove">Approve</th>
+          <!--<th>Hold</th>-->
+          <th>Index</th>
+          <th>AssignmenID</th>
+          <th>Donner User Id</th>
+          <th>Name</th>
+          <th>Gender</th>
+          <th>Profession</th>
+          <th>Mail</th>
+          <th>Assing Date</th>
+          <th>Need Date</th>
+          <th>Post Id</th>
+          <th>Blood Manage Status</th>
+          <th>Assing Note</th>
+        </tr>
+        <tr *ngFor="let da of donnerAssingmentAll; let i=index">
+          <!--remove-->
+          <!--<td *ngIf="buttonRemove">-->
+          <td>
+            <!--<button class="btn btn-xs btn-primary" (click)="requestRemove(da.requestId)" data-toggle="modal"-->
+                    <!--data-target="#edit_blood_assignment">Edit-->
+            <!--</button>-->
+            <br>
+            <button class="btn btn-xs btn-danger" (click)="deleteId=da.donnerAssingmentId" data-toggle="modal"
+                    data-target="#deleteDonnerAssignment">Remove
+            </button>
+            <br>
+            <button class="btn btn-xs btn-info" (click)="assignmentCompletionID=da.donnerAssingmentId"
+                    data-toggle="modal"
+                    data-target="#completeDonnerAssignment">Complete
+            </button>
+          </td>
+          <td>{{i+1}}</td>
+          <td>{{da.donnerAssingmentId}}</td>
+          <td>
+            {{da.userId}}
+            <br>
+            <button class="btn btn-xs btn-info" (click)="getProfileDetails(da.userId)"
+                    data-toggle="modal"
+                    data-target="#user_details">Details
+            </button>
+          </td>
+          <td>{{da.name}}</td>
+          <td>{{da.gender}}</td>
+          <td>{{da.profession}}</td>
+          <td>{{da.email}}</td>
+          <td>{{da.assingDate}}</td>
+          <td>{{da.needDate}}</td>
+          <td>
+            {{da.postId}}
+            <a target="_blank" class="btn btn-primary btn-xs" role="button"
+               [routerLink]="['/post_details', da.postId]">Details</a>
+          </td>
+          <td>{{da.bloodManageStatus}}</td>
+          <td>{{da.assingNote}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel-footer">Review Request</div>
+</div>
+<!--end : table-->
+
+
+<!-- Modal-start  : New Blood Request Assignment-->
+<div class="modal fade" id="new_blood_assignment" tabindex="-1" role="dialog" aria-labelledby="new_postLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title" id="new_postLabel1">New Blood Request Assignment</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!--need date-->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Need Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="bloodNeedDate" type="text" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="bloodNeedDate" type="date" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <!--donner ID-->
+        <div class="form-group">
+          <label>Donner ID</label>
+          <button class="btn btn-xs btn-primary" (click)="showDonnerDetails=true; profileCheckingByUserID();">Check
+          </button>
+          <input [(ngModel)]="donnerUserID" type="text" class="form-control"
+                 placeholder="Enter donner id...">
+        </div>
+        <!--donner details-->
+        <div *ngIf="showDonnerDetails">
+          <button class="btn btn-xs btn-warning" (click)="showDonnerDetails=false">close</button>
+          <div *ngIf="profileBasic.profileFound==true">
+            Name : {{profileBasic['name']}}
+            <br>
+            Profession : {{profileBasic['profession']}}
+            <br>
+            <b>Blood Group :</b> {{profileBasic['blood_Group']}}
+            <br>
+            <b>Last Blood Given Since : </b>{{profileBasic.lastBloodGiven}}
+          </div>
+          <div *ngIf="profileBasic.profileFound==false">
+            <h4 style="color: red">Sorry no donner found. Please check the userID again</h4>
+          </div>
+          <hr>
+        </div>
+
+        <div class="form-group">
+          <label>Post ID</label>
+          <button class="btn btn-xs btn-primary" (click)="showPostDetails=true; postChecking()">Check</button>
+          <input [(ngModel)]="postIDSave" type="text" class="form-control"
+                 placeholder="Post ID!">
+        </div>
+        <!--post details-->
+        <div *ngIf="showPostDetails">
+          <button class="btn btn-xs btn-warning" (click)="showPostDetails=false;">close</button>
+          <div *ngIf="postBasic.postID!=null">
+            <b>Post ID :</b>{{postBasic.postID}}
+            <br>
+            <b>Blood Group :</b>{{postBasic.bloodType}}
+            <br>
+            <b>Quantity :</b>{{postBasic.quantity}}
+            <br>
+            <b>Hospital Name :</b>{{postBasic.hospitalName}}
+            <br>
+            <b>Hospital Address :</b>{{postBasic.hospitalAddress}}
+            <br>
+            <b>Contact : </b>{{postBasic.contactInfo}}
+          </div>
+          <div *ngIf="postBasic.postID==null">
+            <h5 style="color: red;">Sorry No post found!</h5>
+            <button *ngIf="!showPostCheck" class="btn btn-xs btn-info"
+                    data-toggle="modal"
+                    data-target="#new_blood_posts">Add New
+            </button>
+          </div>
+          <hr>
+        </div>
+        <!--notes : thought no need, will be used as note personal-->
+        <div class="form-group">
+          <label>Assign Note</label>
+          <textarea class="col-md-12" [(ngModel)]="assignNote"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveNewAssignment()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal-end : New Blood Request Assignment-->
+
+<!-- Modal-start  : edit Blood Request Assignment-->
+<div class="modal fade" id="edit_blood_assignment" tabindex="-1" role="dialog" aria-labelledby="new_postLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title" id="edit_postLabel1">New Blood Request Assignment</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!--need date-->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Need Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="bloodNeedDate" type="text" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="bloodNeedDate" type="date" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <!--donner ID-->
+        <div class="form-group">
+          <label>Donner ID</label>
+          <button class="btn btn-xs btn-primary" (click)="showDonnerDetails=true; profileCheckingByUserID();">Check
+          </button>
+          <input [(ngModel)]="donnerUserID" type="text" class="form-control"
+                 placeholder="Enter donner id...">
+        </div>
+        <!--donner details-->
+        <div *ngIf="showDonnerDetails">
+          <button class="btn btn-xs btn-warning" (click)="showDonnerDetails=false">close</button>
+          <div *ngIf="profileBasic.profileFound==true">
+            Name : {{profileBasic['name']}}
+            <br>
+            Profession : {{profileBasic['profession']}}
+            <br>
+            <b>Blood Group :</b> {{profileBasic['blood_Group']}}
+            <br>
+            <b>Last Blood Given Since : </b>{{profileBasic.lastBloodGiven}}
+          </div>
+          <div *ngIf="profileBasic.profileFound==false">
+            <h4 style="color: red">Sorry no donner found. Please check the userID again</h4>
+          </div>
+          <hr>
+        </div>
+
+        <div class="form-group">
+          <label>Post ID</label>
+          <button class="btn btn-xs btn-primary" (click)="showPostDetails=true; postChecking()">Check</button>
+          <input [(ngModel)]="postIDSave" type="text" class="form-control"
+                 placeholder="Post ID!">
+        </div>
+        <!--post details-->
+        <div *ngIf="showPostDetails">
+          <button class="btn btn-xs btn-warning" (click)="showPostDetails=false;">close</button>
+          <div *ngIf="postBasic.postID!=null">
+            <b>Post ID :</b>{{postBasic.postID}}
+            <br>
+            <b>Blood Group :</b>{{postBasic.bloodType}}
+            <br>
+            <b>Quantity :</b>{{postBasic.quantity}}
+            <br>
+            <b>Hospital Name :</b>{{postBasic.hospitalName}}
+            <br>
+            <b>Hospital Address :</b>{{postBasic.hospitalAddress}}
+            <br>
+            <b>Contact : </b>{{postBasic.contactInfo}}
+          </div>
+          <div *ngIf="postBasic.postID==null">
+            <h5 style="color: red;">Sorry No post found!</h5>
+            <button *ngIf="!showPostCheck" class="btn btn-xs btn-info"
+                    data-toggle="modal"
+                    data-target="#new_blood_posts">Add New
+            </button>
+          </div>
+          <hr>
+        </div>
+        <!--notes : thought no need, will be used as note personal-->
+        <div class="form-group">
+          <label>Assign Note</label>
+          <textarea class="col-md-12" [(ngModel)]="assignNote"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveNewAssignment()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal-end : edit Blood Request Assignment-->
+
+
+<!--refacotor : Have to make util component delete, by @input value will send, by @output click value will be got-->
+<!-- start-Modal :  complete Confirmation -->
+<div class="modal fade" id="completeDonnerAssignment" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Complete Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Does the assignment completed? ID : {{deleteId}}</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary btn-danger" (click)="assignmentComleted()"
+                data-dismiss="modal">
+          Completed
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end-Modal :  complete Confirmation -->
+
+
+<!-- start-Modal :  Delete Confirmation -->
+<div class="modal fade" id="deleteDonnerAssignment" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete Post({{pageHeader}})</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Are U sure to delete? ID : {{deleteId}}</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary btn-danger" (click)="deleteAssignment()"
+                data-dismiss="modal">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end-Modal :  Delete Confirmation -->
+
+<!-- start-Modal :  user Details-->
+<div class="modal fade" id="user_details" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">User Details Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h3 align="center">Basic Info</h3>
+        <b>Name : </b>{{profileDetails.name}}<br>
+        <b>Gender : </b>{{profileDetails.gender}}<br>
+        <b>Birth Date : </b>{{profileDetails.birthDate}}<br>
+        <b>Blood Group : </b>{{profileDetails.blood_Group}}<br>
+        <b>Care Of : </b>{{profileDetails.care_of}}<br>
+        <b>Email : </b>{{profileDetails.email}}<br>
+        <b>Marital Status : </b>{{profileDetails.maritalStatus}}<br>
+        <b>Profession : </b>{{profileDetails.profession}}<br>
+        <b>Religion : </b>{{profileDetails.religion}}<br>
+        <b>Available : </b>{{profileDetails['available']}}<br>
+        <b>Phone Numbers : </b><br>
+        <div *ngFor="let p of profileDetails.phone_number; let i=index">
+          {{p['number']}}
+        </div>
+        <h3 align="center">Address</h3>
+        <div *ngFor="let a of profileDetails.address; let i=index">
+          <b>Type : {{a.type}}</b><br>
+          {{a['street_address']}};{{a['union_ward']}},{{a['upzilla']}},{{a['district']}},{{a['division']}}<br>
+          <br>
+        </div>
+        <h3 align="center">Emergency Contact</h3>
+        <div>
+          <div *ngFor="let e of profileDetails.emergency_contact; let i=index">
+            <b>Emergency Contact : {{i+1}}</b><br>
+            <b>Name :</b>{{e['name']}}<br>
+            <b>Address:</b>{{e['address']}}<br>
+            <b>Phone :</b>{{e['phone']}}<br>
+            <b>Mail :</b>{{e['mail']}}<br>
+            <b>Relation :</b>{{e['relation']}}<br>
+            <br>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end-Modal :  Delete Confirmation -->
+
+
+<!-- Modal-start  : New Posts Blood-->
+<div class="modal fade" id="new_blood_posts" tabindex="-1" role="dialog" aria-labelledby="new_postLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title" id="new_postLabel">New Blood Post</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+
+        <!--Need Date-->
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Need Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="bloodNeedDate" type="text" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label>Select Date:</label>
+            <div class="input-group date">
+              <input [(ngModel)]="bloodNeedDate" type="date" class="form-control pull-right">
+            </div>
+          </div>
+        </div>
+        <!--blood_type-->
+        <div class="col-md-4">
+          <label>Blood Group</label>
+          <div class="form-group">
+            <select [(ngModel)]="blood_Group"
+                    class="form-control select2 select2-hidden-accessible"
+                    style="width: 100%;" tabindex="-1" aria-hidden="true"
+            >
+              <option *ngFor="let b of bloods">{{b}}</option>
+            </select>
+          </div>
+        </div>
+        <!--quantity-->
+        <div class="col-md-4">
+          <div class="form-group">
+            <label>Qauntity</label>
+            <input [(ngModel)]="quantity" type="text" class="form-control"
+                   placeholder="Enter Quantity...">
+          </div>
+        </div>
+        <!--patient_gender-->
+        <div class="col-md-4">
+          <label>Gender</label>
+          <div class="form-group">
+            <div class="form-group" data-select2-id="27">
+              <select [(ngModel)]="patientGender"
+                      class="form-control select2 select2-hidden-accessible"
+                      style="width: 100%;" tabindex="-1" aria-hidden="true"
+              >
+                <option value="other">Other</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <!--relation-->
+        <div class="col-md-12">
+          <div class="form-group">
+            <label>Relation</label>
+            <input [(ngModel)]="relationWithPatient" type="text" class="form-control"
+                   placeholder="Enter Relation with the patient...">
+          </div>
+        </div>
+        <!--hospital_name-->
+        <div class="form-group">
+          <label>Hospital Name</label>
+          <input [(ngModel)]="hospitalName" type="text" class="form-control"
+                 placeholder="Enter Hospital Name...">
+        </div>
+        <!--hospital_address-->
+        <div class="form-group">
+          <label>Hospital Address</label>
+          <input [(ngModel)]="hospitalAddress" type="text" class="form-control"
+                 placeholder="Enter Hospital Name...">
+        </div>
+        <!--location-->
+        <div class="form-group">
+          <label>Location</label>
+          <textarea class="col-md-12" [(ngModel)]="donationLocation"></textarea>
+        </div>
+        <!--contact_info-->
+        <div class="form-group">
+          <label>Contact Info</label>
+          <textarea class="col-md-12" [(ngModel)]="contactInfo"></textarea>
+        </div>
+        <!--patient_description`,-->
+        <div class="form-group">
+          <label>Patient Type/Description</label>
+          <textarea class="col-md-12" [(ngModel)]="patientDescription"></textarea>
+        </div>
+        <!--notes : thought no need, will be used as note personal-->
+        <div class="form-group">
+          <label>Note Persoanl(Private)</label>
+          <textarea class="col-md-12" [(ngModel)]="anyNotes"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveBloodPost()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal-end : New Posts Blood-->
+
+
+
+

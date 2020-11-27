@@ -1,0 +1,226 @@
+<!--<div align="center" id="request_review" class="tabcontent">-->
+<!--START : Search-->
+<div class="wrapper">
+  <h3 class={{headerColor}} align="cennter">{{pageHeader}}</h3>
+  <h4 align="left">
+    <button class="btn btn-info" (click)="startRequests=0; getAgentRequestsToReview(); ">Search</button>
+    <!--<button class="btn btn-xs btn-primary" (click)="searchCount()">Refresh</button>-->
+  </h4>
+  <!-- sort by column name -->
+  <!--start : search fields and search key or search value -->
+  <div align="left" class="col-md-12 offset-md-12">
+    <div class="form-group">
+      <label>Value : </label>
+      <input [(ngModel)]="searchKey" type="text" class="form-control">
+    </div>
+  </div>
+  <!--Search By :-->
+  <div align="left" class="col-md-12 offset-md-12">
+    <div class="form-group">
+      <h4>Search By :</h4>
+      <select [(ngModel)]="searchByColumn">
+        <option value="name">Name</option>
+        <option value="gender">Gender</option>
+        <option value="profession">Profession</option>
+        <option value="user_id">User Id</option>
+        <option value="note">Note</option>
+        <option value="username">Username</option>
+        <option value="request_id">Request Id</option>
+        <option value="status">Status</option>
+        <option value="phonenumber">Phonenumber</option>
+      </select>
+    </div>
+  </div>
+  <!-- end : search fields selection and search key or search value-->
+
+  <!--      total-->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Total </label>
+      <input style="text-align: center" disabled="true" [(ngModel)]="total" type="number"
+             class="form-control" value="{{total}}">
+    </div>
+  </div>
+  <!--      start -->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Start</label>
+      <input style="text-align: center" [(ngModel)]="startRequests" type="number" class="form-control"
+             value="{{startHistory}}" (ngModelChange)="getAll()">
+    </div>
+  </div>
+  <!--      perPage-->
+  <div class="col-md-2 offset-md-2">
+    <div style="text-align: center" class="form-group">
+      <label>Per Page</label>
+      <input style="text-align: center" [(ngModel)]="perPage" type="number" class="form-control"
+             value="{{perPage}}" (ngModelChange)="getAll()">
+    </div>
+  </div>
+  <!--      prePage/nextPage-->
+  <div class="col-md-3 offset-md-3">
+    <div class="form-group" style="text-align: center">
+      <button class="btn btn-primary btn-xs" (click)="previousPage()">Previous</button>
+      <label class="btn btn-danger btn-xs ">Page Number</label>
+      <button class="btn btn-primary btn-xs" (click)="nextPage()">Next</button>
+      <input style="text-align: center" [(ngModel)]="pageNumber" type="number" class="form-control"
+             value="{{pageNumber}}">
+    </div>
+  </div>
+  <!--       sort by ASC or DESC -->
+  <div class="col-md-3 offset-md-3">
+    <div class="form-group" style="text-align: center">
+      <h4>Sort Order</h4>
+      <input type="radio" name="m_pay" [(ngModel)]="sortBy" value="ASC" checked="checked">Ascending<br>
+      <input type="radio" name="m_pay" [(ngModel)]="sortBy" value="DESC">Descending<br>
+    </div>
+  </div>
+  <!--</div>-->
+  <!--END : Search-->
+  <!--start : table-->
+  <div class="col-xs-12">
+    <div class="box">
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tbody>
+          <tr>
+            <th>Actions</th>
+            <!--<th>Reject</th>-->
+            <!--<th>Approve</th>-->
+            <th>Index</th>
+            <th>{{statusType}} Date</th>
+            <th>Name</th>
+            <th>User Name</th>
+            <th>Gender</th>
+            <th>Phone Numbers</th>
+            <th>Note Applicant</th>
+            <th>Note Admin</th>
+            <th>Note Personal</th>
+            <th>Professions</th>
+            <th>Adress Present</th>
+            <th>Adress Permanent</th>
+          </tr>
+          <tr *ngFor="let ar of agentRequestsToReview; let i=index">
+            <!--Actions-->
+            <td>
+              <button *ngIf="buttonReject" class="btn btn-xs btn-warning" (click)="requestReject(ar.requestId)"
+                      data-toggle="modal"
+                      data-target="#donation_delete">Reject
+              </button>
+              <br *ngIf="buttonReject">
+              <button *ngIf="buttonApprove" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal_work"
+                      (click)="requestAccept(ar.requestId)">Approve
+              </button>
+              <br *ngIf="buttonReject">
+              <button *ngIf="buttonActive" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal_work"
+                      (click)="requestAccept(ar.requestId)">Active
+              </button>
+              <br *ngIf="buttonFreeze">
+              <button *ngIf="buttonFreeze" class="btn btn-xs btn-danger" (click)="requestFreeze(ar.requestId)"
+                      data-toggle="modal"
+                      data-target="#donation_delete">Freeze
+              </button>
+              <br *ngIf="buttonDetials">
+              <button *ngIf="buttonDetials" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal_work"
+                      (click)="requestAccept(ar.requestId)">Details
+              </button>
+
+            </td>
+            <td>{{i+1}}</td>
+            <td>{{ar.requestDate}}</td>
+            <td>{{ar.name}}</td>
+            <td>{{ar.username}}</td>
+            <td>{{ar.gender}}</td>
+            <td>{{ar.phone_number}}</td>
+            <td>{{ar.noteApplicant}}</td>
+            <td>
+              <button class="btn btn-xs btn-info" (click)=" adminNote=ar.noteAdmin; requestID=ar.requestId"
+                      data-toggle="modal"
+                      [attr.data-target]="'#' + modalIDAdmin">Edit
+              </button>
+              <br>
+              {{ar.noteAdmin}}
+            </td>
+            <td>
+              <button class="btn btn-xs btn-danger" (click)=" personalNote=ar.notePersonal; requestID=ar.requestId"
+                      data-toggle="modal"
+                      [attr.data-target]="'#' + modalIDAgent">Edit
+              </button>
+              <br>
+              {{ar.notePersonal}}
+            </td>
+            <td>{{ar.profession}}</td>
+            <td>{{ar.presentStreet}},{{ar.presentUnion}},{{ar.presentUpz}},{{ar.presentDist}},{{ar.presentDiv}}</td>
+            <td>
+              {{ar.permanentStreet}},{{ar.permanentUnion}},{{ar.permanentUpz}},{{ar.permanentDist}},{{ar.permanentDiv}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="panel-footer">Review Request</div>
+  </div>
+  <!--end : table-->
+</div>
+
+
+<!-- Modal  : Update note Admin-->
+<div class="modal fade" id="{{modalIDAdmin}}" tabindex="-1" role="dialog" aria-labelledby="modal_workLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title" id="modal_workLabel">Update Admin Note</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Admin Note</label>
+          <textarea class="col-md-12" rows="20" [(ngModel)]="adminNote">
+
+            </textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updateAdminNote()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <app-footernavbar></app-footernavbar> -->
+  <!-- <app-settingsnavbar></app-settingsnavbar> -->
+</div>
+
+<!-- Modal  : Update note Personal-->
+<div class="modal fade" id="{{modalIDAgent}}" tabindex="-1" role="dialog" aria-labelledby="modal_workLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title" id="modal_personalNot">Update Personal Note</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Personal Note</label>
+          <textarea class="col-md-12" rows="20" [(ngModel)]="personalNote">
+
+            </textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="updatePersonalNote()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <app-footernavbar></app-footernavbar> -->
+  <!-- <app-settingsnavbar></app-settingsnavbar> -->
+</div>

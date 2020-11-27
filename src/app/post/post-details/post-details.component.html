@@ -1,0 +1,225 @@
+<div class="wrapper">
+  <div class="box box-info">
+    <h1 align="center">Post Details</h1>
+  </div>
+
+  <!--start : post basic-->
+  <div class="box box-danger">
+    <div class="box-body table-responsive">
+      <table class="table" border="2">
+        <tr>
+          <td style="background-color: deeppink">Status</td>
+          <td>{{postBasic.status}}</td>
+        </tr>
+        <!--POST ID-->
+        <tr>
+          <td>
+            <button class="btn btn-sm btn-warning">Post ID</button>
+          </td>
+          <td>
+            {{postBasic.postID}}
+          </td>
+        </tr>
+        <!--Need date-->
+        <tr style="background-color: pink">
+          <td>
+            <button class="btn btn-sm btn-warning">Need Date</button>
+          </td>
+          <td>
+            {{postBasic.needDate}}
+          </td>
+        </tr>
+        <!--Blood Type-->
+        <tr style="background-color: cyan">
+          <td>
+            <button class="btn btn-sm btn-danger">Blood Type</button>
+          </td>
+          <td>
+            {{postBasic.bloodType}}
+          </td>
+        </tr>
+        <!--Quantity-->
+        <tr style="background-color: cyan">
+          <td>
+            <button class="btn btn-sm btn-warning">Quantity</button>
+          </td>
+          <td>{{postBasic.quantity}}</td>
+        </tr>
+        <!--gender-->
+        <tr>
+          <td>
+            <button class="btn btn-sm btn-info">Patient Gender</button>
+          </td>
+          <td>{{postBasic.patientGender}}</td>
+        </tr>
+        <!--relation-->
+        <tr>
+          <td>
+            <button class="btn btn-sm btn-info">Relation</button>
+          </td>
+          <td>{{postBasic.relation}}</td>
+        </tr>
+        <!--hospital name-->
+        <tr>
+          <td>
+            <button class="btn btn-sm btn-info">Hospital Name</button>
+          </td>
+          <td>{{postBasic.hospitalName}}</td>
+        </tr>
+        <!--hospital address-->
+        <tr>
+          <td>
+            <button class="btn btn-sm btn-info">Hospital Address</button>
+          </td>
+          <td>{{postBasic.hospitalAddress}}</td>
+        </tr>
+        <!--location-->
+        <tr>
+          <td>
+            <button class="btn btn-sm btn-info">Location</button>
+          </td>
+          <td>{{postBasic.location}}</td>
+        </tr>
+        <!--contact info-->
+        <tr>
+          <td>
+            <button class="btn btn-sm btn-warning">Contact_info</button>
+          </td>
+          <td>{{postBasic.contactInfo}}</td>
+        </tr>
+        <!--patient description-->
+        <tr>
+          <td>
+            <button class="btn btn-sm btn-info">Patient Description</button>
+          </td>
+          <td>{{postBasic.patientDescription}}</td>
+        </tr>
+      </table>
+    </div>
+    <br>
+    <button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#new_comment">
+      Add New
+    </button>
+    <br>
+  </div>
+  <!--end : post basic-->
+
+  <!--start : post comments-->
+  <div class="box box-info" *ngFor="let c of postCommentWithUserInfo;let i=index">
+    <div class="box-header">
+      <button *ngIf="c.commentOwner" class="btn btn-xs btn-info">Edit</button>
+      <button *ngIf="c.commentOwner" class="btn btn-xs btn-warning" type="button"
+              data-toggle="modal" data-target="#comment_delete" (click)="postcommentDelete = c">Delete
+      </button>
+      <span class="label label-primary">Name:</span>{{c.name}}
+      <span class="label label-info">Email: </span>{{c.email}}
+      <span class="label label-success">Gender: </span>{{c.gender}}
+      <span class="label label-warning">Profession: </span>{{c.profession}}
+      <span class="label label-danger">Comment Date: </span>{{c.commentDate}}
+      <button class="btn btn-xs btn-primary" data-toggle="modal"
+              data-target="#contact_commented_user" (click)="getUserPublicContact(c.commentUserId)">Contact
+      </button>
+    </div>
+    <div class="box-comments">
+      {{c.commentDetails}}
+    </div>
+  </div>
+  <!--end : post comments-->
+</div>
+
+<!-- modal-start  : New Comments-->
+<div class="modal fade" id="new_comment" tabindex="-1" role="dialog" aria-labelledby="new_postLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title" id="new_postLabel">New Comment</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span ar-ia-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Comment : </label>
+          <textarea class="col-md-12" rows="10" cols="50" [(ngModel)]="commentContentSave"></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveComment()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- modal-end : New Comments-->
+
+<!-- start-Modal :  Delete Confirmation -->
+<div class="modal fade" id="comment_delete" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Comment Delete</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h4>Are U sure to delete?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary btn-danger" (click)="deleteComment()"
+                data-dismiss="modal">
+          Delete
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end-Modal :  Delete Confirmation -->
+
+<!-- start-Modal :  show commented user contact -->
+<div class="modal fade" id="contact_commented_user" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Contact Information </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h5>Contact Type:</h5>
+        <h3>{{userPublicContact.contactType}}</h3>
+
+        <h5>Name:</h5>
+        <h3>{{userPublicContact.name}}</h3>
+
+        <h5>Email:</h5>
+        <h3>{{userPublicContact.email}}</h3>
+
+        <h5>Phone:</h5>
+        <!--working-->
+        <!--<h3>{{userPublicContact.phoneNumbers[0]['number']}}</h3>-->
+
+        <!--<h3 *ngFor="let p of userPublicContact.phoneNumbers;let i=index">-->
+        <!--{{userPublicContact.phoneNumbers[i]['number']}}</h3>-->
+
+        <h3 *ngFor="let p of userPublicContact.phoneNumbers;let i=index">
+          {{p['number']}}</h3>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- end-Modal :  show commented user contact -->
+

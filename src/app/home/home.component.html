@@ -1,0 +1,37 @@
+<!--<h1 align="center" class="jumbotron">-->
+<h1 align="center" class="display-1" style="font-size: 100px;">
+  <a href="#" class="logo text-teal">
+    <!-- logo for regular state and mobile devices -->
+    <span class="logo-lg text-danger"><b style="color: limegreen">Donate</b>DROP</span>
+  </a>
+</h1>
+<!--<h1 class="display-1">Display 1</h1>-->
+
+
+<div align="center" class="tab">
+  <button class="tablinks" (click)="selectTab(event, 'about')">About</button>
+  <button class="tablinks" (click)="selectTab(event, 'posts')">Post</button>
+  <button class="tablinks" (click)="selectTab(event, 'search')">Search</button>
+  <button class="tablinks" (click)="selectTab(event, 'loggin')">Loggin</button>
+  <button class="tablinks" (click)="selectTab(event, 'administration')">Administration</button>
+</div>
+
+<div align="center" id="about" class="tabcontent">
+  <h1>About Us</h1>
+  <h5>Donate Drop</h5>
+  <!--<app-news-public></app-news-public>-->
+</div>
+<div align="center" id="posts" class="tabcontent">
+  <h1>All blood Posts</h1>
+  <!--<app-news-public></app-news-public>-->
+</div>
+<div align="center" id="search" class="tabcontent">
+  <h1>Search Among Donner</h1>
+  <!--<app-news-public></app-news-public>-->
+</div>
+<div align="center" id="loggin" class="tabcontent">
+  <app-auth></app-auth>
+</div>
+<div align="center" id="administration" class="tabcontent">
+  <h1>Administration</h1>
+</div>

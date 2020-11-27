@@ -1,0 +1,226 @@
+<div class="wrapper">
+  <app-topnavbar></app-topnavbar>
+  <app-asidenavbar></app-asidenavbar>
+  <div class="content-wrapper">
+    <h1 align="center">History</h1>
+    <button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#modal_work">
+      Add New
+    </button>
+
+    <!--START : Search-->
+    <div>
+      <h4>
+        <button class="btn btn-info" (click)="getAll()">Search</button>
+        <!--<button class="btn btn-xs btn-primary" (click)="searchCount()">Refresh</button>-->
+      </h4>
+      <!-- sort by column name -->
+      <!--start : search fields and search key or search value -->
+      <div class="col-md-12 offset-md-12">
+        <div class="form-group">
+          <label>Value : </label>
+          <input [(ngModel)]="searchKey" type="text" class="form-control">
+        </div>
+      </div>
+      <div class="col-md-12 offset-md-12">
+        <div class="form-group">
+          <h4>Search By :</h4>
+          <select [(ngModel)]="searchBy">
+            <option value="date">Date</option>
+            <option value="location">Location</option>
+            <option value="note">Note</option>
+            <option value="patient_description">Patient Description</option>
+            <option value="reffered_by">Reffered By</option>
+          </select>
+        </div>
+      </div>
+      <!-- end : search fields selection and search key or search value-->
+
+      <!--      total-->
+      <div class="col-md-2 offset-md-2">
+        <div style="text-align: center" class="form-group">
+          <label>Total </label>
+          <input style="text-align: center" disabled="true" [(ngModel)]="total" type="number"
+                 class="form-control" value="{{total}}">
+        </div>
+      </div>
+
+      <!--      start -->
+      <div class="col-md-2 offset-md-2">
+        <div style="text-align: center" class="form-group">
+          <label>Start</label>
+          <input style="text-align: center" [(ngModel)]="startHistory" type="number" class="form-control"
+                 value="{{startHistory}}" (ngModelChange)="getAll()">
+        </div>
+      </div>
+
+      <!--      perPage-->
+      <div class="col-md-2 offset-md-2">
+        <div style="text-align: center" class="form-group">
+          <label>Per Page</label>
+          <input style="text-align: center" [(ngModel)]="perPage" type="number" class="form-control"
+                 value="{{perPage}}" (ngModelChange)="getAll()">
+        </div>
+      </div>
+
+      <!--      prePage/nextPage-->
+      <div class="col-md-3 offset-md-3">
+        <div class="form-group" style="text-align: center">
+          <button class="btn btn-primary btn-xs" (click)="previousPage()">Previous</button>
+          <label class="btn btn-danger btn-xs ">Page Number</label>
+          <button class="btn btn-primary btn-xs" (click)="nextPage()">Next</button>
+          <input style="text-align: center" [(ngModel)]="pageNumber" type="number" class="form-control"
+                 value="{{pageNumber}}">
+        </div>
+      </div>
+      <!--       sort by ASC or DESC -->
+      <div class="col-md-3 offset-md-3">
+        <div class="form-group" style="text-align: center">
+          <h4>Sort Order</h4>
+          <input type="radio" name="m_pay" [(ngModel)]="sortBy" value="ASC" checked="checked">Ascending<br>
+          <input type="radio" name="m_pay" [(ngModel)]="sortBy" value="DESC">Descending<br>
+        </div>
+      </div>
+    </div>
+    <!--END : Search-->
+
+    <!--start : table-->
+    <div class="col-xs-12">
+      <div class="box">
+        <div class="box-body table-responsive no-padding">
+          <table class="table table-hover">
+            <tbody>
+            <tr>
+              <th>Delete</th>
+              <th>Edit</th>
+              <th>Index</th>
+              <th>Date</th>
+              <th>Location</th>
+              <th>Patient Type</th>
+              <th>Note</th>
+              <th>Reffered By</th>
+            </tr>
+            <tr *ngFor="let h of historyDonation; let i=index">
+              <!--delete-->
+              <td>
+                donation_delete
+                <button class="btn btn-xs btn-warning" (click)=" deleteId = h.$id" data-toggle="modal"
+                        data-target="#donation_delete">Delete
+                </button>
+              </td>
+              <!--edit-->
+              <td>
+                <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal_work"
+                        (click)="update(j)">Edit
+                </button>
+              </td>
+              <td>{{i+1}}</td>
+              <td>{{h.date}}</td>
+              <td>{{h.location}}</td>
+              <td>{{h.$patientDescription}}</td>
+              <td>{{h.note}}</td>
+              <td>{{h.$refferedBy}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="panel-footer">Donation History</div>
+    </div>
+    <!--end : table-->
+
+  </div>
+
+  <!-- Modal  : New History-->
+  <div class="modal fade" id="modal_work" tabindex="-1" role="dialog" aria-labelledby="modal_workLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div align="center" class="modal-header">
+          <h3 class="modal-title" id="modal_workLabel">New Work History</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body">
+
+          <!--Date-->
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Birth Date:</label>
+              <div class="input-group date">
+                <input [(ngModel)]="donationDate" type="text" class="form-control pull-right">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Select Date:</label>
+              <div class="input-group date">
+                <input [(ngModel)]="donationDate" type="date" class="form-control pull-right">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Location</label>
+            <input [(ngModel)]="donationLocation" type="text" class="form-control"
+                   placeholder="Enter ...">
+          </div>
+          <div class="form-group">
+            <label>Patient Type/Description</label>
+            <input [(ngModel)]="patientType" type="text" class="form-control" placeholder="Enter ...">
+          </div>
+          <div class="form-group">
+            <label>Reffered By</label>
+            <input [(ngModel)]="refferedBy" type="text" class="form-control" placeholder="Enter ...">
+          </div>
+          <div class="form-group">
+            <label>Note</label>
+            <textarea class="col-md-12" [(ngModel)]="donationNote">
+
+            </textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveHistory()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- <app-footernavbar></app-footernavbar> -->
+    <!-- <app-settingsnavbar></app-settingsnavbar> -->
+  </div>
+
+  <!--refacotor : Have to make util component delete, by @input value will send, by @output click value will be got-->
+  <!-- start-Modal :  Delete Confirmation -->
+  <div class="modal fade" id="donation_delete" tabindex="-1" role="dialog"
+       aria-labelledby="exampleModalLabel"
+       aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Role Delete</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <h4>Are U sure to delete?</h4>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary btn-danger" (click)="deleteDonation()"
+                  data-dismiss="modal">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end-Modal :  Delete Confirmation -->
+
+
+  <!-- content-wrapper -->
+</div>
+<!--wrapper-->

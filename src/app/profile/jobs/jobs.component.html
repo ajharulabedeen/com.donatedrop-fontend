@@ -1,0 +1,121 @@
+<!-- <p>jobs works!</p> -->
+<!-- Work History History -->
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#work_history">Work History</a>
+        <button class="btn btn-primary btn-xs" *ngIf="!edit" (click)="editJobs()">Edit</button>
+        <button class="btn btn-primary btn-xs" *ngIf="edit" (click)="update()">
+          Update
+          <!-- {{ basicExist ? 'Update' : 'Save' }} -->
+        </button>
+        <button class="btn btn-danger btn-xs" *ngIf="edit" (click)="editJobs()">Cancel</button>
+        <button class="btn btn-warnning btn-xs" *ngIf="edit" (click)="save()">
+          Save
+        </button>
+      </h4>
+    </div>
+    <div id="work_history" class="panel-collapse collapse">
+      <div class="panel-body">
+        <!-- ton trigger modal -->
+        <button type="button" class="btn btn-md btn-primary" data-toggle="modal" data-target="#modal_work">
+          Add New
+        </button>
+        <div class="col-xs-12">
+          <div class="box">
+            <div class="box-body table-responsive no-padding">
+              <table class="table table-hover">
+                <tbody>
+                <tr>
+                  <th>Index</th>
+                  <th>Instition Name</th>
+                  <th>Type</th>
+                  <th>Role</th>
+                  <th>Started</th>
+                  <th>Leave</th>
+                  <th>Current Status</th>
+                  <th>Operation</th>
+                </tr>
+                <tr *ngFor="let j of jobsArray; let i=index">
+                  <td>{{i+1}}</td>
+                  <td>{{j.organization_name}}</td>
+                  <td>{{j.type}}</td>
+                  <td>{{j.role}}</td>
+                  <td>{{j.started}}</td>
+                  <td>{{j.leave}}</td>
+                  <td>{{j.current_status}}</td>
+                  <td>
+                    <button class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal_work"
+                            (click)="update(j)">Edit
+                    </button>
+                    <button class="btn btn-xs btn-warning" (click)="delete(j.id)">Delete</button>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="panel-footer">Work History</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- <app-footernavbar></app-footernavbar> -->
+  </div>
+  <!-- content-wrapper -->
+  <!-- <app-footernavbar></app-footernavbar> -->
+</div>
+
+
+<!-- Modal  work-->
+<div class="modal fade" id="modal_work" tabindex="-1" role="dialog" aria-labelledby="modal_workLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal_workLabel">New Work History</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Organization Name</label>
+          <input [(ngModel)]="organization_name" [disabled]='!edit' type="text" class="form-control"
+                 placeholder="Enter ...">
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <input [(ngModel)]="type" [disabled]='!edit' type="text" class="form-control" placeholder="Enter ...">
+        </div>
+        <div class="form-group">
+          <label>Role</label>
+          <input [(ngModel)]="role" [disabled]='!edit' type="text" class="form-control" placeholder="Enter ...">
+        </div>
+        <div class="form-group">
+          <label>Started</label>
+          <input [(ngModel)]="started" [disabled]='!edit' type="text" class="form-control" placeholder="Enter ...">
+        </div>
+        <div class="form-group">
+          <label>Leave</label>
+          <input [(ngModel)]="leave" [disabled]='!edit' type="text" class="form-control" placeholder="Enter ...">
+        </div>
+        <div class="form-group">
+          <label>Current Status</label>
+          <input [(ngModel)]="current_status" [disabled]='!edit' type="text" class="form-control"
+                 placeholder="Enter ...">
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="save()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- <app-footernavbar></app-footernavbar> -->
+  <!-- <app-settingsnavbar></app-settingsnavbar> -->
+</div>

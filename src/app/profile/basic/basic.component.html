@@ -1,0 +1,590 @@
+<!-- profile Basic Info -->
+<div class="panel-group">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" href="#basic">Profile Basic Info</a>
+        <button class="btn btn-primary btn-xs" *ngIf="!profileEdit" (click)="editProfile()">Change Photo</button>
+      </h4>
+    </div>
+    <div id="basic" class="panel-collapse collapse">
+      <div class="panel-body">
+        <div class="box-body">
+          <!--start : Basic single informations-->
+          <div class="row box box-primary">
+            <!--Name-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Name</label>
+                  <input [(ngModel)]="name" [disabled]='!profileEdit' type="text" class="form-control"
+                         placeholder="enter ur  name">
+                </div>
+              </div>
+            </div>
+            <!-- Start : Gender, Date of Birth, Blood Group -->
+            <div class="row">
+              <!-- Birth Date -->
+              <div class="col-md-2">
+                <div class="form-group">
+                  <label>Birth Date:</label>
+                  <div class="input-group date">
+                    <input [(ngModel)]="birthDate" [disabled]='!profileEdit' type="text"
+                           class="form-control pull-right">
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2">
+                <!-- Date -->
+                <div class="form-group">
+                  <label>Select Date:</label>
+                  <div class="input-group date">
+                    <input [(ngModel)]="birthDate" [disabled]='!profileEdit' type="date"
+                           class="form-control pull-right">
+                  </div>
+                </div>
+              </div>
+              <!-- end : Date -->
+              <!--<div class="col-md-3 offset-md-3">-->
+              <div class="col-md-2">
+                <label>Gender</label>
+                <!--<input [(ngModel)]="gender" [disabled]='!profileEdit' type="text" class="form-control pull-right">-->
+                <!-- not now due to complexity to set data after read. -->
+                <div class="form-group">
+                  <div class="form-group" data-select2-id="27">
+                    <select [disabled]='!profileEdit' [(ngModel)]="gender"
+                            class="form-control select2 select2-hidden-accessible"
+                            style="width: 100%;" tabindex="-1" aria-hidden="true"
+                    >
+                      <option value="other">Other</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <!--<div class="col-md-3 offset-md-3">-->
+              <div class="col-md-2">
+                <label>Blood Group</label>
+                <!--<input [(ngModel)]="blood_group" [disabled]='!profileEdit' type="text" class="form-control pull-right">-->
+                <div class="form-group">
+                  <div class="form-group" data-select2-id="27">
+                    <select [disabled]='!profileEdit' [(ngModel)]="blood_Group"
+                            class="form-control select2 select2-hidden-accessible"
+                            style="width: 100%;" tabindex="-1" aria-hidden="true"
+                    >
+                      <option *ngFor="let b of bloods">{{b}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!--religion-->
+              <div class="col-md-3">
+                <label>Religeon</label>
+                <input [(ngModel)]="religion" [disabled]='!profileEdit' type="text" class="form-control pull-right"
+                       placeholder="Street Address!">
+              </div>
+
+              <!--profession-->
+              <div class=" col-md-12">
+                <label>Profession</label>
+                <input [(ngModel)]="profession" [disabled]='!profileEdit' type="text" class="form-control pull-right">
+              </div>
+
+              <!--care of-->
+              <div class="col-md-12">
+                <label>Care of : </label>
+                <input [(ngModel)]="care_of" [disabled]='!profileEdit' type="text" class="form-control pull-right">
+              </div>
+
+            </div>
+            <!-- end : Gender, Date of Birth, Blood Group -->
+            <!-- email-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input [(ngModel)]="email" [disabled]='!profileEdit' type="email" class="form-control"
+                         placeholder="Enter Email Address...">
+                </div>
+              </div>
+            </div>
+
+            <!--Available-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Available</label><br>
+                  <div class="col-md-1">
+                    <input [(ngModel)]="available" type="radio" id="yes" value="1" name="available">
+                    <label for="yes">Yes</label><br>
+                  </div>
+                  <div class="col-md-1">
+                    <input [(ngModel)]="available" type="radio" id="no" value="0" name="available">
+                    <label for="no">No</label><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--Marital Status-->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Marital Status</label><br>
+                  <div class="col-md-1">
+                    <input [(ngModel)]="maritalStatus" type="radio" id="m_yes" value="1" name="MaritalStatus">
+                    <label for="m_yes">Yes</label><br>
+                  </div>
+                  <div class="col-md-1">
+                    <input [(ngModel)]="maritalStatus" type="radio" id="m_no" value="0" name="MaritalStatus">
+                    <label for="m_no">No</label><br>
+                  </div>
+                  <div class="col-md-1">
+                    <input [(ngModel)]="maritalStatus" type="radio" id="m_skip" value="-1" name="MaritalStatus">
+                    <label for="m_skip">Skip</label><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--profile basic operations-->
+            <button class="btn btn-primary btn-xs" *ngIf="profileEdit" (click)="update()">
+              Update
+              <!-- {{ basicExist ? 'Update' : 'Save' }} -->
+            </button>
+            <!--<button class="btn btn-danger btn-xs" *ngIf="profileEdit" (click)="editProfile()">Cancel</button>-->
+            <!--<button class="btn btn-primary btn-xs" *ngIf="profileEdit" (click)="save()">-->
+            <!--Save-->
+            <!--</button>-->
+          </div>
+          <!--end : Basic single informations-->
+
+
+          <!--Start : phone number-->
+          <div class="row box box-info">
+            <div class="col-md-12">
+              <h4 class="h4">Phone Numbers</h4>
+              <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal_phoneNumber">Add New
+              </button>
+              <table class="table table-hover">
+                <tbody>
+                <th>Delete</th>
+                <th>Index</th>
+                <th>Number</th>
+                <tr *ngFor="let p of phoneNumbers; let i=index">
+                  <td>
+                    <button class="btn btn-xs btn-danger" (click)="deletePhoneNumber(p)">Delete
+                    </button>
+                  </td>
+                  <td>{{i+1}}</td>
+                  <td>
+                    {{p.$number}}
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!--end : phone number-->
+
+          <!--start : present address-->
+          <div class="row box box-info">
+            <h4>Present Address</h4>
+            <!-- present division-->
+            <div class="col-md-3">
+              <label>Division</label>
+              <div class="form-group">
+                <div class="form-group">
+                  <select [disabled]='!profileEdit' [(ngModel)]="present_division"
+                          class="form-control select2 select2-hidden-accessible"
+                          style="width: 100%;" tabindex="-1" aria-hidden="true"
+                          (click)="getPresent_districts(present_division)"
+                  >
+                    <option *ngFor="let d of divisions">
+                      <span (click)="divIDPrint(d.id)">{{d._name}}</span>
+                    </option>
+                    <!--<option value="d">{{d}}</option>-->
+                  </select>
+                  <input [(ngModel)]="present_division" [disabled]='true' type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <!-- present district-->
+            <div class="col-md-3">
+              <label>District</label>
+              <div class="form-group">
+                <div class="form-group">
+                  <select [disabled]='!profileEdit' [(ngModel)]="present_district"
+                          class="form-control select2 select2-hidden-accessible"
+                          style="width: 100%;" tabindex="-1" aria-hidden="true"
+                          (click)="getPresent_upzillas(present_district)"
+                  >
+                    <option *ngFor="let d of present_districts">
+                      <span>{{d.name}}</span>
+                    </option>
+                    <!--<option value="d">{{d}}</option>-->
+                  </select>
+                  <input [(ngModel)]="present_district" [disabled]='true' type="text" class="form-control">
+                </div>
+                <!--<div class="form-group">-->
+                <!--&lt;!&ndash;<label>Street Address</label>&ndash;&gt;-->
+                <!--<input [(ngModel)]="present_district" [disabled]='!profileEdit' type="text" class="form-control"-->
+                <!--placeholder="Street Address!">-->
+                <!--</div>-->
+              </div>
+            </div>
+            <!-- present upzilla-->
+            <div class="col-md-3">
+              <label>Upzilla</label>
+              <div class="form-group">
+                <div class="form-group">
+                  <select [disabled]='!profileEdit' [(ngModel)]="present_upzilla"
+                          class="form-control select2 select2-hidden-accessible"
+                          style="width: 100%;" tabindex="-1" aria-hidden="true"
+                          (click)="getPresent_unions(present_upzilla)"
+                  >
+                    <option *ngFor="let up of present_upzillas">
+                      {{up.name}}
+                    </option>
+                  </select>
+                  <input [(ngModel)]="present_upzilla" [disabled]='true' type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <!-- present unions-->
+            <div class="col-md-3">
+              <label>Unions</label>
+              <div class="form-group">
+                <div class="form-group">
+                  <select [disabled]='!profileEdit' [(ngModel)]="present_union"
+                          class="form-control select2 select2-hidden-accessible"
+                          style="width: 100%;" tabindex="-1" aria-hidden="true"
+                  >
+                    <option *ngFor="let un of present_unions">
+                      {{un.name}}
+                    </option>
+                  </select>
+                  <input [(ngModel)]="present_union" [disabled]='true' type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <!-- present street address -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Street Address</label>
+                <input [(ngModel)]="present_street_address" [disabled]='!profileEdit' type="text" class="form-control"
+                       placeholder="Street Address!">
+              </div>
+              <!--<input [(ngModel)]="present_upzilla" [disabled]='!profileEdit' type="text" class="form-control">-->
+            </div>
+            <div class="col-md-12">
+              <button class="btn btn-primary btn-xs" *ngIf="profileEdit" (click)="update_address_present()">
+                Update
+                <!-- {{ basicExist ? 'Update' : 'Save' }} -->
+              </button>
+              <!--<button class="btn btn-danger btn-xs" *ngIf="profileEdit" (click)="editProfile()">Cancel</button>-->
+              <!--<button class="btn btn-primary btn-xs" *ngIf="profileEdit" (click)="save()">-->
+              <!--Save-->
+              <!--</button>-->
+            </div>
+          </div>
+          <!--end : present address-->
+
+          <!--start : permanent address-->
+          <div class="row box box-body box-info">
+            <h4>Permanent Address</h4>
+            <!-- permanent division-->
+            <div class="col-md-3">
+              <label>Division</label>
+              <div class="form-group">
+                <div class="form-group">
+                  <select [disabled]='!profileEdit' [(ngModel)]="permanent_division"
+                          class="form-control select2 select2-hidden-accessible"
+                          style="width: 100%;" tabindex="-1" aria-hidden="true"
+                          (click)="getPermanent_districts(permanent_division)"
+                  >
+                    <option *ngFor="let div of divisions; let i=index">
+                      {{div._name}}
+                    </option>
+                    <!--<option value="d">{{d}}</option>-->
+                  </select>
+                  <input [(ngModel)]="permanent_division" [disabled]='true' type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <!-- permanent district-->
+            <div class="col-md-3">
+              <label>District</label>
+              <div class="form-group">
+                <div class="form-group">
+                  <select [disabled]='!profileEdit' [(ngModel)]="permanent_district"
+                          class="form-control select2 select2-hidden-accessible"
+                          style="width: 100%;" tabindex="-1" aria-hidden="true"
+                          (click)="getPermanent_upzillas(permanent_district)"
+                  >
+                    <option *ngFor="let d of permanent_districts">
+                      {{d.name}}
+                    </option>
+                    <!--<option value="d">{{d}}</option>-->
+                  </select>
+                  <input [(ngModel)]="permanent_district" [disabled]='true' type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <!-- permanent upzilla-->
+            <div class="col-md-3">
+              <label>Upzilla</label>
+              <div class="form-group">
+                <div class="form-group">
+                  <select [disabled]='!profileEdit' [(ngModel)]="permanent_upzilla"
+                          class="form-control select2 select2-hidden-accessible"
+                          style="width: 100%;" tabindex="-1" aria-hidden="true"
+                          (click)="getPermanent_unions(permanent_upzilla)"
+                  >
+                    <option *ngFor="let up of permanent_upzillas">
+                      {{up.name}}
+                    </option>
+                  </select>
+                  <input [(ngModel)]="permanent_upzilla" [disabled]='true' type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <!-- permanent unions-->
+            <div class="col-md-3">
+              <label>Unions</label>
+              <div class="form-group">
+                <div class="form-group">
+                  <select [disabled]='!profileEdit' [(ngModel)]="permanent_uinon"
+                          class="form-control select2 select2-hidden-accessible"
+                          style="width: 100%;" tabindex="-1" aria-hidden="true"
+                  >
+                    <option *ngFor="let un of permanent_unions">
+                      {{un.name}}
+                    </option>
+                  </select>
+                  <input [(ngModel)]="permanent_uinon" [disabled]='true' type="text" class="form-control">
+                </div>
+              </div>
+            </div>
+            <!-- present street address -->
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Street Address</label>
+                <input [(ngModel)]="permanent_street_address" [disabled]='!profileEdit' type="text" class="form-control"
+                       placeholder="Street Address!">
+              </div>
+            </div>
+            <button class="btn btn-primary btn-xs" *ngIf="profileEdit" (click)="update_address_permanent()">
+              Update
+              <!-- {{ basicExist ? 'Update' : 'Save' }} -->
+            </button>
+          </div>
+          <!--end : permanent  address-->
+
+          <!-- Start : Emergency Contact-->
+          <div class="row box box-body box-danger">
+            <h3>Emergency Contact</h3>
+            <div class="col-md-12">
+              <button type="button" class="btn btn-md btn-primary" data-toggle="modal"
+                      data-target="#modal_emegency_contact">
+                Add New
+              </button>
+              <div class="col-xs-12">
+                <div class="box">
+                  <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                      <tbody>
+                      <!--Head-->
+                      <tr>
+                        <th>Delete</th>
+                        <th>Edit</th>
+                        <th>Index</th>
+                        <th>Name</th>
+                        <th>Phone</th>
+                        <th>Relation</th>
+                        <th>Mail</th>
+                        <th>Adress</th>
+                      </tr>
+                      <tr *ngFor="let e of emergencyContacts; let i=index">
+                        <td>
+                          <button class="btn btn-xs btn-danger" (click)="deleteEmergencyContact(e)">Delete</button>
+                        </td>
+                        <!-- Edit  -->
+                        <td>
+                          <button class="btn btn-xs btn-primary" data-toggle="modal"
+                                  data-target="#edit_modal_emegency_contact" (click)="setEmergencyContact(e)">
+                            Edit
+                          </button>
+                        </td>
+                        <td>{{i+1}}</td>
+                        <td>{{e.$name}}</td>
+                        <td>{{e.$phone}}</td>
+                        <td>{{e.$relation}}</td>
+                        <td>{{e.$mail}}</td>
+                        <td>{{e.$address}}</td>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+              </div>
+            </div>
+          </div>
+          <!-- End : Emergency Contact-->
+        </div>
+        <!--<div class="box-body">-->
+      </div>
+      <!--<div class="panel-body">-->
+      <div class="panel-footer">End Basic Info.</div>
+    </div>
+    <!--<div id="basic" class="panel-collapse collapse">-->
+  </div>
+</div>
+<!--panel-group-->
+
+
+<!-- modal new phone number-->
+<div class="modal fade" id="modal_phoneNumber" tabindex="-1" role="dialog" aria-labelledby="modal_educationLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal_educationLabel">New Phone Number</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Phone Number</label>
+          <input [(ngModel)]="phoneNumber" [disabled]='!profileEdit' type="text" class="form-control"
+                 placeholder="Enter Phone Number...">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="addPhoneNumber()">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal new emegency contact -->
+<div class="modal fade" id="modal_emegency_contact" tabindex="-1" role="dialog"
+     aria-labelledby="modal_educationLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 align="center" class="modal-title" id="edit_modal_educationLabe">New Emergency Contact</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Name</label>
+          <!--<input [(ngModel)]="emergencyContactName" [disabled]='!edit' type="text" class="form-control"-->
+          <input [(ngModel)]="emergencyContactName" type="text" class="form-control"
+                 placeholder="Name... (Max : 512 Character)">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input [(ngModel)]="emergencyContactPhone" type="text" class="form-control"
+                 placeholder="Phone Number...">
+        </div>
+        <div class="form-group">
+          <label>Relation</label>
+          <input [(ngModel)]="emergencyContactRelation" type="text" class="form-control"
+                 placeholder="Relation...">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input [(ngModel)]="emergencyContactEmail" type="text" class="form-control"
+                 placeholder="Email...">
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <textarea [(ngModel)]="emergencyContactAddress" class="form-control">
+
+          </textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="save_emergency_contact()">Save
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <app-footernavbar></app-footernavbar> -->
+  <!-- <app-settingsnavbar></app-settingsnavbar> -->
+</div>
+
+<!-- modal edit emegency contact-->
+<div class="modal fade" id="edit_modal_emegency_contact" tabindex="-1" role="dialog"
+     aria-labelledby="modal_educationLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div align="center" class="modal-header">
+        <h3 class="modal-title" id="modal_educationLabe">Edit Emergency Contact</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>Name</label>
+          <!--<input [(ngModel)]="emergencyContactName" [disabled]='!edit' type="text" class="form-control"-->
+          <input [(ngModel)]="editEmergencyContactName" type="text" class="form-control"
+                 placeholder="Name... (Max : 512 Character)">
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input [(ngModel)]="editEmergencyContactPhone" type="text" class="form-control"
+                 placeholder="Phone Number(Max : 512 Character)">
+        </div>
+        <div class="form-group">
+          <label>Relation</label>
+          <input [(ngModel)]="editEmergencyContactRelation" type="text" class="form-control"
+                 placeholder="Relation...... (Max : 512 Character)">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input [(ngModel)]="editEmergencyContactEmail" type="text" class="form-control"
+                 placeholder="Email...... (Max : 512 Character)">
+        </div>
+        <div class="form-group">
+          <label>Address</label>
+          <textarea [(ngModel)]="editEmergencyContactAddress" class="form-control">
+
+          </textarea>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="editEmergencyContact()">Update
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- <app-footernavbar></app-footernavbar> -->
+  <!-- <app-settingsnavbar></app-settingsnavbar> -->
+</div>
+
+
+<!-- <app-footernavbar></app-footernavbar> -->
+<!-- <app-settingsnavbar></app-settingsnavbar> -->
+<!--</div>-->
+vis

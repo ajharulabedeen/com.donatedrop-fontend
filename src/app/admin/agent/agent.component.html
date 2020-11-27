@@ -1,0 +1,74 @@
+<!--<h1 align="center" class="jumbotron">-->
+<h5 align="center" style="font-size: 50px;">
+  <span class="text-danger"><b style="color: limegreen">Donate</b>DROP</span>
+  <span>|</span>
+  <span class="logo text-teal">Agent Management</span>
+</h5>
+
+<div align="center" class="tab">
+  <button class="tablinks" (click)="tabChange(event, 'request_review')">Review</button>
+  <button class="tablinks" (click)="tabChange(event, 'accepted')">Accepted</button>
+  <button class="tablinks" (click)="tabChange(event, 'rejected')">Rejected</button>
+  <button class="tablinks" (click)="tabChange(event, 'freeze')">Freeze</button>
+  <!--<button class="tablinks" (click)="tabChange(event, 'hold')">Hold</button>-->
+  <!--<button class="tablinks" (click)="tabChange(event, 'news')">News</button>-->
+  <!--<button class="tablinks" (click)="tabChange(event, 'loggin')">Loggin</button>-->
+</div>
+
+<!--Start : Rivew Request-->
+<div align="center" id="request_review" class="tabcontent">
+  <app-agent-review
+    [pageHeader]="headerReview"
+    [statusType]="0"
+    [buttonReject]="true"
+    [buttonApprove]="true"
+    [modalIDAdmin]="0"
+    [modalIDAgent]="01"
+  >
+  </app-agent-review>
+</div>
+<!--End : Rivew Request-->
+<div align="center" id="accepted" class="tabcontent">
+  <!--<app-agent-accepted></app-agent-accepted>-->
+  <app-agent-review
+    [pageHeader]="headerAccepted"
+    [statusType]="ACCEPTED"
+    [buttonFreeze]="true"
+    [buttonDetials]="true"
+    [modalIDAdmin]="ACCEPTED"
+    [modalIDAgent]="ACCEPTED_ID"
+  >
+  </app-agent-review>
+
+</div>
+<div align="center" id="rejected" class="tabcontent">
+  <!--<app-agent-rejected></app-agent-rejected>-->
+  <app-agent-review
+    [pageHeader]="headerRejected"
+    [statusType]="REJECTED"
+    [buttonApprove]="true"
+    [modalIDAdmin]="REJECTED"
+    [modalIDAgent]="REJECTED_ID"
+  >
+  </app-agent-review>
+
+</div>
+<!--will active later.-->
+<!--<div align="center" id="hold" class="tabcontent">-->
+<!--<app-agent-hold></app-agent-hold>-->
+<!--</div>-->
+<div align="center" id="freeze" class="tabcontent">
+  <!--<app-agent-freeze></app-agent-freeze>-->
+  <app-agent-review
+    [pageHeader]="headerFreeze"
+    [statusType]="FREEZED"
+    [buttonActive]="true"
+    [buttonDetials]="true"
+    [modalIDAdmin]="FREEZE"
+    [modalIDAgent]="FREEZE_ID"
+  >
+  </app-agent-review>
+</div>
+
+
+

@@ -1,0 +1,81 @@
+<div class="wrapper">
+  <app-topnavbar></app-topnavbar>
+  <app-asidenavbar></app-asidenavbar>
+  <div class="content-wrapper">
+
+    <!--<h1 align="center" class="jumbotron">-->
+    <h5 align="center" style="font-size: 50px;">
+      <span class="logo text-teal">My Posts</span>
+    </h5>
+
+    <div align="center" class="tab">
+      <button class="tablinks" (click)="tabChange(event, 'post_active')">Active</button>
+      <button class="tablinks" (click)="tabChange(event, 'post_expired')">Expired</button>
+      <button class="tablinks" (click)="tabChange(event, 'post_managed')">Managed</button>
+      <!--<button class="tablinks" (click)="tabChange(event, 'removed')">Removed</button>-->
+    </div>
+
+    <div align="center" id="post_active" class="tabcontent">
+      <app-my-posts
+        [pageHeader]="headerActive"
+        [postType]="ACTIVE"
+        [expiredButton]="true"
+        [modalNew]="ACTIVE_NEW_ID"
+        [modalEdit]="ACTIVE_EDIT_ID"
+        [modalDelete]="ACTIVE_DELETE_ID"
+      >
+
+      </app-my-posts>
+      <!--<app-agent-dashboard-review-->
+      <!--[pageHeader]="headerReview"-->
+      <!--[statusType]="0"-->
+      <!--[buttonReject]="true"-->
+      <!--[buttonApprove]="true"-->
+      <!--[modalIDAgent]="0"-->
+      <!--[modalIDDonner]="01"-->
+      <!--&gt;-->
+      <!--</app-agent-dashboard-review>-->
+    </div>
+    <div align="center" id="post_expired" class="tabcontent">
+      <app-my-posts
+        [pageHeader]="headerExpired"
+        [reactiveButton]="true"
+        [postType]="EXPIRED"
+        [managedButton]="false"
+        [modalNew]="EXPIRED_NEW_ID"
+        [modalEdit]="EXPIRED_EDIT_ID"
+        [modalDelete]="EXPIRED_DELETE_ID"
+      >
+      </app-my-posts>
+      <!--<app-agent-dashboard-review-->
+      <!--[pageHeader]="headerAccepted"-->
+      <!--[statusType]="ACCEPTED"-->
+      <!--[buttonRemove]="true"-->
+      <!--[modalIDAgent]="ACCEPTED"-->
+      <!--[modalIDDonner]="ACCEPTED_ID"-->
+      <!--&gt;-->
+      <!--</app-agent-dashboard-review>-->
+    </div>
+    <div align="center" id="post_managed" class="tabcontent">
+      <app-my-posts
+        [pageHeader]="headerManaged"
+        [reactiveButton]="true"
+        [managedButton]="false"
+        [postType]="MANAGED"
+        [modalNew]="MANAGE_NEW_ID"
+        [modalEdit]="MANAGE_EDIT_ID"
+        [modalDelete]="MANAGE_DELETE_ID"
+      >
+      </app-my-posts>
+      <!--<app-agent-dashboard-review-->
+      <!--[pageHeader]="headerRejected"-->
+      <!--[statusType]="REJECTED"-->
+      <!--[buttonApprove]="true"-->
+      <!--[modalIDAgent]="REJECTED"-->
+      <!--[modalIDDonner]="REJECTED_ID"-->
+      <!--&gt;-->
+      <!--</app-agent-dashboard-review>-->
+    </div>
+
+  </div>
+

@@ -1,0 +1,46 @@
+<h1>{{parentTitle}}</h1>
+<app-childone
+  [ctMsg]="cityMsg"
+  [reject]="0"
+  [ctArray]="cityArray"
+  [studentAddMsg]="stdAddMsg"
+  (addStudentEvent)="saveData($event)">
+  <!--(sendMsgEvent)="printMsg($event)">-->
+  <!--(sendMsgEvent)="printMsg($event)">-->
+</app-childone>
+<p>Name: {{stdFullName}}</p>
+<p>Message: {{msg}}</p>
+<hr>
+<hr>
+<app-childone
+  [ctMsg]="cityMsg"
+  [ctArray]="cityArray"
+  [studentAddMsg]="stdAddMsg1"
+  (addStudentEvent)="saveData1($event)"
+  (sendMsgEvent)="printMsg($event)">
+  <!--[reject]="true"-->
+  <!--(sendMsgEvent)="printMsg($event)">-->
+</app-childone>
+
+<hr>
+<hr>
+<p>Name: {{stdFullName1}}</p>
+<p>Message: {{msg}}</p>
+<hr>
+<hr>
+<!--[studentMsg]="stdMsg"-->
+<!--[stdLeader]="stdLeaderObj"-->
+<app-childtwo
+  [studentMsg]="stdMsg"
+  [stdLeader]="stdLeaderObj"
+  (addNumberEvent)="printSum($event)">
+</app-childtwo>
+<p>Sum: {{sum}}</p>
+<hr>
+<hr>
+<app-childtwo
+  [studentMsg]="stdMsgAK"
+  [stdLeader]="stdLeaderObjAK"
+  (addNumberEvent)="printSum($event)">
+</app-childtwo>
+

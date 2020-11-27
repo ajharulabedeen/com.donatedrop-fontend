@@ -1,0 +1,116 @@
+<!--<h1 align="center" class="jumbotron">-->
+<h5 align="left" style="font-size: 50px;">
+  <span class="text-danger"><b style="color: limegreen">Donate</b>DROP</span>
+  <span>|</span>
+  <span class="logo text-teal">Agent Dashboard</span>
+
+</h5>
+<div class="row">
+  <button class="btn btn-primary" (click)="bloodRequest=false">Donner
+    Managemrent
+  </button>
+  <button class="btn btn-danger" (click)="bloodRequest=true">Blood Request Managemrent</button>
+</div>
+
+<!--start : donner request manage-->
+<div *ngIf="!bloodRequest">
+  <div style="background-color: #0b93d5" align="center" class="tab">
+    <button class="tablinks" (click)="tabChange(event, 'request_review')">Review</button>
+    <button class="tablinks" (click)="tabChange(event, 'accepted')">Accepted</button>
+    <button class="tablinks" (click)="tabChange(event, 'rejected')">Rejected</button>
+    <button class="tablinks" (click)="tabChange(event, 'removed')">Removed</button>
+  </div>
+  <div align="center" id="request_review" class="tabcontent">
+    <app-agent-dashboard-review
+      [pageHeader]="headerReview"
+      [statusType]="0"
+      [buttonReject]="true"
+      [buttonApprove]="true"
+      [modalIDAgent]="0"
+      [modalIDDonner]="01"
+    >
+    </app-agent-dashboard-review>
+  </div>
+  <div align="center" id="accepted" class="tabcontent">
+    <!--<app-agent-dashboard-accepted></app-agent-dashboard-accepted>-->
+    <app-agent-dashboard-review
+      [pageHeader]="headerAccepted"
+      [statusType]="ACCEPTED"
+      [buttonRemove]="true"
+      [modalIDAgent]="ACCEPTED"
+      [modalIDDonner]="ACCEPTED_ID"
+    >
+    </app-agent-dashboard-review>
+  </div>
+  <div align="center" id="rejected" class="tabcontent">
+    <!--<app-agent-dashboard-rejected></app-agent-dashboard-rejected>-->
+    <app-agent-dashboard-review
+      [pageHeader]="headerRejected"
+      [statusType]="REJECTED"
+      [buttonApprove]="true"
+      [modalIDAgent]="REJECTED"
+      [modalIDDonner]="REJECTED_ID"
+    >
+    </app-agent-dashboard-review>
+  </div>
+  <div align="center" id="removed" class="tabcontent">
+    <!--<app-agent-dashboard-removed></app-agent-dashboard-removed>-->
+    <app-agent-dashboard-review
+      [pageHeader]="headerRemove"
+      [statusType]="REMOVE"
+      [buttonApprove]="true"
+      [modalIDAgent]="REMOVE"
+      [modalIDDonner]="REMOVE_ID"
+    >
+    </app-agent-dashboard-review>
+  </div>
+</div>
+<!--end : donner request manage-->
+
+<!--start : blood request manage-->
+<div *ngIf="bloodRequest">
+    <app-donner-assigning></app-donner-assigning>
+
+
+  <!--<div style="background-color: deeppink" align="center" class="tab">-->
+    <!--<button class="tablinks" (click)="tabChange(event, 'blood_request_active')">Active</button>-->
+    <!--<button class="tablinks" (click)="tabChange(event, 'blood_request_expired')">Managed</button>-->
+    <!--<button class="tablinks" (click)="tabChange(event, 'blood_request_managed')">Expired</button>-->
+  <!--</div>-->
+  <!--<div align="center" id="blood_request_active" class="tabcontent">-->
+    <!--<h1>Active</h1>-->
+  <!--</div>-->
+
+
+
+
+  <!--<div align="center" id="blood_request_expired" class="tabcontent">-->
+    <!--<h1>Expired</h1>-->
+    <!--&lt;!&ndash;<app-agent-dashboard-rejected></app-agent-dashboard-rejected>&ndash;&gt;-->
+    <!--&lt;!&ndash;<app-agent-dashboard-review&ndash;&gt;-->
+    <!--&lt;!&ndash;[pageHeader]="headerRejected"&ndash;&gt;-->
+    <!--&lt;!&ndash;[statusType]="REJECTED"&ndash;&gt;-->
+    <!--&lt;!&ndash;[buttonApprove]="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;[modalIDAgent]="REJECTED"&ndash;&gt;-->
+    <!--&lt;!&ndash;[modalIDDonner]="REJECTED_ID"&ndash;&gt;-->
+    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;</app-agent-dashboard-review>&ndash;&gt;-->
+  <!--</div>-->
+  <!--<div align="center" id="blood_request_managed" class="tabcontent">-->
+    <!--<h1>Managed</h1>-->
+    <!--&lt;!&ndash;<app-agent-dashboard-removed></app-agent-dashboard-removed>&ndash;&gt;-->
+    <!--&lt;!&ndash;<app-agent-dashboard-review&ndash;&gt;-->
+    <!--&lt;!&ndash;[pageHeader]="headerRemove"&ndash;&gt;-->
+    <!--&lt;!&ndash;[statusType]="REMOVE"&ndash;&gt;-->
+    <!--&lt;!&ndash;[buttonApprove]="true"&ndash;&gt;-->
+    <!--&lt;!&ndash;[modalIDAgent]="REMOVE"&ndash;&gt;-->
+    <!--&lt;!&ndash;[modalIDDonner]="REMOVE_ID"&ndash;&gt;-->
+    <!--&lt;!&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;</app-agent-dashboard-review>&ndash;&gt;-->
+  <!--</div>-->
+</div>
+<!--end : blood request manage-->
+
+
+
+
