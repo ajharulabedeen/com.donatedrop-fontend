@@ -57,6 +57,18 @@ export class ReviewComponent implements OnInit {
   adminNote: string;
   personalNote: string;
 
+
+  // Property 'startHistory' does not exist on type 'ReviewComponent'.
+  startHistory: number;
+  // Property 'sortBy' does not exist on type 'ReviewComponent'.
+  sortBy: string;
+  // Property 'sortBy' does not exist on type 'ReviewComponent'.
+  // Property 'getAll' does not exist on type 'ReviewComponent'.
+  // Property 'getAll' does not exist on type 'ReviewComponent'.
+  // Property 'sortBy' does not exist on type 'ReviewComponent'.
+  // Property 'sortBy' does not exist on type 'ReviewComponent'.
+
+
   agentRequestsToReview: AgentRequestToReview[] = new Array();
 
   // rivewValue: ReviewValue = new ReviewValue();

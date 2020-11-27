@@ -6,10 +6,10 @@
       <h4 class="panel-title">
         <a data-toggle="collapse" href="#work_history">Work History</a>
         <button class="btn btn-primary btn-xs" *ngIf="!edit" (click)="editJobs()">Edit</button>
-        <button class="btn btn-primary btn-xs" *ngIf="edit" (click)="update()">
-          Update
-          <!-- {{ basicExist ? 'Update' : 'Save' }} -->
-        </button>
+        <!--<button class="btn btn-primary btn-xs" *ngIf="edit" (click)="update('')">-->
+          <!--Update-->
+          <!--&lt;!&ndash; {{ basicExist ? 'Update' : 'Save' }} &ndash;&gt;-->
+        <!--</button>-->
         <button class="btn btn-danger btn-xs" *ngIf="edit" (click)="editJobs()">Cancel</button>
         <button class="btn btn-warnning btn-xs" *ngIf="edit" (click)="save()">
           Save

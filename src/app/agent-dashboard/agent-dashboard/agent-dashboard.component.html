@@ -15,10 +15,10 @@
 <!--start : donner request manage-->
 <div *ngIf="!bloodRequest">
   <div style="background-color: #0b93d5" align="center" class="tab">
-    <button class="tablinks" (click)="tabChange(event, 'request_review')">Review</button>
-    <button class="tablinks" (click)="tabChange(event, 'accepted')">Accepted</button>
-    <button class="tablinks" (click)="tabChange(event, 'rejected')">Rejected</button>
-    <button class="tablinks" (click)="tabChange(event, 'removed')">Removed</button>
+    <button class="tablinks" (click)="tabChange('', 'request_review')">Review</button>
+    <button class="tablinks" (click)="tabChange('', 'accepted')">Accepted</button>
+    <button class="tablinks" (click)="tabChange('', 'rejected')">Rejected</button>
+    <button class="tablinks" (click)="tabChange('', 'removed')">Removed</button>
   </div>
   <div align="center" id="request_review" class="tabcontent">
     <app-agent-dashboard-review
