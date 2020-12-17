@@ -22,7 +22,6 @@ import {
 import {DataTableComponent} from './data-table/data-table.component';
 import {FileUploaderTestComponent} from './file-uploader-test/file-uploader-test.component';
 // import { PaymentModule } from './payment/payment.module';
-import {EventModule} from './event/event.module';
 import {CKEditorModule} from '@ckeditor/ckeditor5-angular';
 // import {RecordRtcComponent} from './record-rtc/record-rtc.component';
 import {RecordClearComponent} from './record-clear/record-clear.component';
@@ -68,7 +67,6 @@ import {RouterModule} from '@angular/router';
     MatButtonModule,
     MatInputModule,
     // PaymentModule,
-    EventModule,
     CKEditorModule,
     BrowserModule,
     AdminModule,
