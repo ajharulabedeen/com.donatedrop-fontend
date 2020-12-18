@@ -32,9 +32,15 @@ import {AgentDashboardModule} from './agent-dashboard/agent-dashboard.module';
 import {TestModule} from './test/test.module';
 import {PostModule} from './post/post.module';
 import {RouterModule} from '@angular/router';
+
+//TODO: active
 import { reducers } from './app.reducer';
 import { StoreModule } from '@ngrx/store';
 
+
+//TODO: clean
+// import { trainingReducer } from './training.reducer';
+// import { authReducer } from './auth/auth.reducer';
 
 @NgModule({
   declarations: [
@@ -76,9 +82,13 @@ import { StoreModule } from '@ngrx/store';
     TestModule,
     PostModule,
     RouterModule,
-    StoreModule.forRoot(reducers)
-    // RecordRTC
+    //TODO: active
+    StoreModule.forRoot(reducers),
+    //TODO: clean
+    // StoreModule.forFeature('training', trainingReducer)
+    // StoreModule.forFeature('training', authReducer)
 
+    // RecordRTC
     // NgModel
   ],
   providers: [],

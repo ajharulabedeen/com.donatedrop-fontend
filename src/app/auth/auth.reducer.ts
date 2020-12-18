@@ -3,22 +3,16 @@ import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
 import {
   AuthActions,
   SET_AUTHENTICATED,
-  SET_UNAUTHENTICATED,
-  SET_USERNAME} from './auth.actions';
+  SET_UNAUTHENTICATED
+} from './auth.actions';
 import * as fromRoot from '../app.reducer';
 
-export interface AuthState {
+export interface State {
   isAuthenticated: boolean;
-  userName: string;
 }
 
-export interface State extends fromRoot.State {
-  authState: AuthState;
-}
-
-const initialState: AuthState = {
-  isAuthenticated: false,
-  userName: null
+const initialState: State = {
+  isAuthenticated: false
 };
 
 export function authReducer(state = initialState, action: AuthActions) {
@@ -37,4 +31,4 @@ export function authReducer(state = initialState, action: AuthActions) {
   }
 }
 
-export const getIsAuth = (state: State) => state.authState.isAuthenticated;
+export const getIsAuth = (state: State) => state.isAuthenticated;
