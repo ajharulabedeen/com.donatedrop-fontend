@@ -167,7 +167,8 @@ export class BasicComponent implements OnInit {
         emergencyContact.$address = b['emergency_contact'][key]['address'];
         emergencyContact.$mail = b['emergency_contact'][key]['mail'];
         emergencyContact.$relation = b['emergency_contact'][key]['relation'];
-        console.log('emergencyContacts : ' + this.emergencyContacts);
+        //TODO:delete
+        // console.log('emergencyContacts : ' + this.emergencyContacts);
         this.emergencyContacts.push(emergencyContact);
       }
 
@@ -205,7 +206,8 @@ export class BasicComponent implements OnInit {
     basic.$email = this.email;
     basic.$available = this.available;
     basic.$maritalStatus = this.maritalStatus;
-    console.log(basic); // remove
+    // TODO: del
+    console.log(basic);
     return basic;
   }
 
