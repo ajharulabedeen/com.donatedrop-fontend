@@ -93,13 +93,11 @@ export class BasicComponent implements OnInit {
   student_id: string;
   passing_year: string;
 
-
   constructor(private basicService: BasicService) {
   }
 
 
   ngOnInit() {
-
     // start : init
     this.blood_Group = 'A+';
     this.gender = 'other';

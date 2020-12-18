@@ -14,10 +14,10 @@ export class ProfileComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private profileBasic : BasicService) {
+    private profileBasic: BasicService) {
   }
 
-  nameOfUser: string;
+
 
   photoEdit = false;
   selectedFile: File;

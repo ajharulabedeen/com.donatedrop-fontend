@@ -6,6 +6,7 @@ import { FooternavbarComponent } from './footernavbar/footernavbar.component';
 import { SettingsnavbarComponent } from './settingsnavbar/settingsnavbar.component';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { RouterModule } from '@angular/router';
+import {ProfileModule} from '../profile/profile.module';
 
 
 
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     RouterModule
+    // ProfileModule
   ],
   declarations: [
     TopnavbarComponent,
