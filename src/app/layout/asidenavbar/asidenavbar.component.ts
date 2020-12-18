@@ -28,9 +28,9 @@ export class AsidenavbarComponent implements OnInit, OnDestroy {
               private store: Store<fromTraining.State>) {}
 
   ngOnInit() {
-    //TODO: delete
-    // console.log(this.currentUserName);
     this.currentUserName$ = this.store.select(fromTraining.getAvailableExercises);
+    //TODO: delete
+    console.log(this.currentUserName$);
 
     console.log('Asidebar onInit() : ');
     this.userSub = this.authService.user.subscribe(user => {

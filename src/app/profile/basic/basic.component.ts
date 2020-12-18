@@ -11,6 +11,10 @@ import {Upzillas} from './upzillas.model';
 import {PhoneNumber} from './phone-number.model';
 import {Address} from '../../model/address.model';
 import {EmergencyContact} from './emergency-contact.model';
+// import * as fromTraining from './../profile/training.reducer';
+import * as fromTraining from '../../profile/training.reducer';
+import { Store } from '@ngrx/store';
+import {SetUserName} from '../training.actions';
 
 @Component({
   selector: 'app-basic',
@@ -93,9 +97,7 @@ export class BasicComponent implements OnInit {
   student_id: string;
   passing_year: string;
 
-  constructor(private basicService: BasicService) {
-  }
-
+  constructor(private basicService: BasicService, private store: Store<fromTraining.State>) {}
 
   ngOnInit() {
     // start : init
@@ -115,7 +117,9 @@ export class BasicComponent implements OnInit {
       console.log('res : ' + b);
 
       // basic information
+      // this.store.dispatch(new SetUserName.);
       this.name = b['name'];
+      this.store.dispatch(new SetUserName(this.name));
       this.birthDate = b['birthDate'];
       this.gender = b['gender'];
       this.blood_Group = b['blood_Group'];
