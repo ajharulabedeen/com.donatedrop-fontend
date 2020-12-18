@@ -32,6 +32,8 @@ import {AgentDashboardModule} from './agent-dashboard/agent-dashboard.module';
 import {TestModule} from './test/test.module';
 import {PostModule} from './post/post.module';
 import {RouterModule} from '@angular/router';
+import { reducers } from './app.reducer';
+import { StoreModule } from '@ngrx/store';
 
 
 @NgModule({
@@ -73,7 +75,8 @@ import {RouterModule} from '@angular/router';
     AgentDashboardModule,
     TestModule,
     PostModule,
-    RouterModule
+    RouterModule,
+    StoreModule.forRoot(reducers)
     // RecordRTC
 
     // NgModel
