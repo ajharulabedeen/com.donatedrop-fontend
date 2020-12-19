@@ -5,14 +5,14 @@ import {AuthService} from '../../auth/auth.service';
 import {tap, catchError, map} from 'rxjs/operators';
 import {throwError, BehaviorSubject} from 'rxjs';
 import {ArrayConcatBuiltinFn} from '@angular/compiler-cli/src/ngtsc/partial_evaluator/src/builtin';
-import {Divisions} from './divisions.model';
+import {Divisions} from './models/divisions.model';
 import {PhoneNumber} from './models/phone-number.model';
 import {Districts} from './models/districts.model';
 import {Upzillas} from './models/upzillas.model';
 import {Unions} from './models/unions.model';
 import {forEachComment} from 'tslint';
 import {Address} from '../../model/address.model';
-import {EmergencyContact} from './emergency-contact.model';
+import {EmergencyContact} from './models/emergency-contact.model';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import {PhoneNumber} from '../profile/basic/models/phone-number.model';
 import {Address} from './address.model';
-import {EmergencyContact} from '../profile/basic/emergency-contact.model';
+import {EmergencyContact} from '../profile/basic/models/emergency-contact.model';
 
 export class ProfileDetails {
   public id: string;
