@@ -10,7 +10,12 @@
       </div>
       <div class="pull-left info">
         <p>{{currentUserName$ | async}}</p>
-        <p>{{currentUserName$['name'] | async}}</p>
+        <br>
+        <!--<p>currentUserName$ | async</p>-->
+        <br>
+        <p>{{currentUserName$['userName']}}</p>
+        <br>
+        <p>{{currentUserName$['value']}}</p>
         <!--<a href="#"><i class="fa fa-circle text-success"></i> Online</a>-->
       </div>
     </div>

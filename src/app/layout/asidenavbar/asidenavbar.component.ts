@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {BasicService} from '../../profile/basic/basic.service';
 import * as fromTraining from '../../profile/training.reducer';
 import { Store } from '@ngrx/store';
+import {async} from 'q';
 
 @Component({
   selector: 'app-asidenavbar',
@@ -25,7 +26,7 @@ export class AsidenavbarComponent implements OnInit, OnDestroy {
   constructor(private authService: AuthService,
               private router: Router,
               private basicService : BasicService,
-              private store: Store<fromTraining.State>) {}
+              private store: Store<fromTraining.ProfileState>) {}
 
   ngOnInit() {
     this.currentUserName$ = this.store.select(fromTraining.getAvailableExercises);
