@@ -1,4 +1,4 @@
-import {PhoneNumber} from '../profile/basic/phone-number.model';
+import {PhoneNumber} from '../profile/basic/models/phone-number.model';
 
 export class UserPublicContact {
   public contactType: string;

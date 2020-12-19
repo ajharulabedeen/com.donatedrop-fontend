@@ -75,12 +75,16 @@ export function trainingReducer(state = initialState, action: ProfileActions) {
 // export const getTrainingState = createFeatureSelector<TrainingState>('training');
 export const getTrainingState = createFeatureSelector<ProfileState>('training');
 
+//TODO: clean
 // export const getAvailableExercises = createSelector(getTrainingState, (state: TrainingState) => state.availableExercises);
+
+//TODO: clean
 // export const getAvailableExercises = createSelector(getTrainingState, (state: ProfileState) => state.userName);
 export const getAvailableExercises = createSelector(getTrainingState, (state: ProfileState) => {
-  console.log("User Name ins State : "+state.userName);
   return state.userName;
 });
+
+//TODO: clean
 // export const getFinishedExercises = createSelector(getTrainingState, (state: TrainingState) => state.finishedExercises);
 // export const getActiveTraining = createSelector(getTrainingState, (state: TrainingState) => state.activeTraining);
 // export const getIsTraining = createSelector(getTrainingState, (state: TrainingState) => state.activeTraining != null);

@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {DonationHistoryService} from './donation-history.service';
 import {SearchRequest} from './search-request.model';
 import {History} from './history.model';
-import {Districts} from '../profile/basic/districts.model';
+import {Districts} from '../profile/basic/models/districts.model';
 
 @Component({
   selector: 'app-donation-history',

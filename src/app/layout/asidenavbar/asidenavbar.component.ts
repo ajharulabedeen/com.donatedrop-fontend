@@ -32,8 +32,6 @@ export class AsidenavbarComponent implements OnInit, OnDestroy {
     this.currentUserName$ = this.store.select(fromTraining.getAvailableExercises);
     //TODO: delete
     console.log(this.currentUserName$);
-
-    console.log('Asidebar onInit() : ');
     this.userSub = this.authService.user.subscribe(user => {
       console.log('Auth Subscriber: ');
       this.isAuthenticated = !!user;
@@ -49,7 +47,6 @@ export class AsidenavbarComponent implements OnInit, OnDestroy {
     console.log(' Log Out : isAuthenticated ' + this.isAuthenticated);
     this.router.navigate(['/home']);
   }
-
 
   ngOnDestroy() {
     this.userSub.unsubscribe();

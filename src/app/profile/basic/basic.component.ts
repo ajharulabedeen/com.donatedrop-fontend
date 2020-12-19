@@ -5,10 +5,10 @@ import {Observable} from 'rxjs';
 import {subscribeOn} from 'rxjs/operators';
 import {ThrowStmt, verifyHostBindings} from '@angular/compiler';
 import {Divisions} from './divisions.model';
-import {Districts} from './districts.model';
-import {Unions} from './unions.model';
-import {Upzillas} from './upzillas.model';
-import {PhoneNumber} from './phone-number.model';
+import {Districts} from './models/districts.model';
+import {Unions} from './models/unions.model';
+import {Upzillas} from './models/upzillas.model';
+import {PhoneNumber} from './models/phone-number.model';
 import {Address} from '../../model/address.model';
 import {EmergencyContact} from './emergency-contact.model';
 // import * as fromTraining from './../profile/training.reducer';
@@ -130,7 +130,7 @@ export class BasicComponent implements OnInit {
       this.available = b['available'];
       this.maritalStatus = b['maritalStatus'];
 
-      console.log('address' + b['address']);
+      // console.log('address' + b['address']);
       for (const key in b['address']) {
         console.log(b['address'][key]['type']);
         if (b['address'][key]['type'] === 'PRESENT') {

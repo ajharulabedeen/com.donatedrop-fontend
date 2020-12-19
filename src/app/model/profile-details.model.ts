@@ -1,4 +1,4 @@
-import {PhoneNumber} from '../profile/basic/phone-number.model';
+import {PhoneNumber} from '../profile/basic/models/phone-number.model';
 import {Address} from './address.model';
 import {EmergencyContact} from '../profile/basic/emergency-contact.model';
 
